@@ -5,6 +5,10 @@ export interface LoginCredentials {
   password: string
 }
 
+export interface SubredditSuggestionRequest {
+  post_markdown: string
+}
+
 // Commented-out fields are mere ideas at this point.
 export interface SubredditSuggestionResponse {
   status: 'OK' | 'Error'
