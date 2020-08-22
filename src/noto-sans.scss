@@ -1,0 +1,27 @@
+// Feel free to add more, but remember that currently-shipping versions of WebKit (Safari) will eagerly download every single font file, even if it's never used on any page.
+//
+// Still, Noto Sans comes in many weights (from Thin to Black) and stretchedness (from extra-condensed to normal). Plus, each has a corresponding italic.
+
+@font-face {
+  font-family: 'Noto Sans';
+  src: url(/fonts/noto-sans/NotoSans-Regular.woff2);
+}
+
+@font-face {
+  font-family: 'Noto Sans';
+  src: url(/fonts/noto-sans/NotoSans-Bold.woff2);
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: 'Noto Sans';
+  src: url(/fonts/noto-sans/NotoSans-Italic.woff2);
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Noto Sans';
+  src: url(/fonts/noto-sans/NotoSans-BoldItalic.woff2);
+  font-weight: bold;
+  font-style: italic;
+}
