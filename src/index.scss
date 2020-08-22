@@ -1,10 +1,14 @@
 @import 'noto-sans';
+@font-face {
+  font-family: 'Noto Sans';
+  src: url(/fonts/noto-mono/NotoMono-Regular.woff2);
+}
 
 :root {
   color-scheme: light dark;
 
   --font-stack--normal: 'Noto Sans', Verdana, sans-serif;
-  --font-stack--monospace: Menlo, Consolas, monospace;
+  --font-stack--monospace: 'Noto Mono', Menlo, Consolas, monospace;
 }
 
 @media (prefers-color-scheme: light), (prefers-color-scheme: no-preference) {
@@ -38,4 +42,8 @@ a:link {
 }
 a:visited {
   color: var(--color--text--link-visited);
+}
+
+code {
+  font-family: var(--font-stack--monospace);
 }
