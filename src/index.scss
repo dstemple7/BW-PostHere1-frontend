@@ -11,6 +11,7 @@
   --font-stack--monospace: 'Noto Mono', Menlo, Consolas, monospace;
 }
 
+// Literally the only reason why all this is in an @media block is so the :root inside can be at the same nesting level as the @media (prefers-color-scheme: dark) block.
 @media (prefers-color-scheme: light), (prefers-color-scheme: no-preference) {
   :root {
     --color--text: hsl(240, 10%, 10%);
