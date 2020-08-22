@@ -1,8 +1,4 @@
 # Generated from prettier-please.py
 *.yaml
 *.md
-*.css
-*.sass
-*.scss
-*.less
 .vscode/
