@@ -8,6 +8,7 @@ const SavedPost = (props: any) => {
     <div className='saved-post'>
       <h3>{content.title}</h3>
       <p>{content.body}</p>
+      <h4>r/{content.subreddit}</h4>
     </div>
   )
 }
