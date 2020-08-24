@@ -1,0 +1,20 @@
+.create-post {
+  width: 70%;
+  margin: 0 auto;
+  border-right: 1px solid black;
+
+    .create-post-form {
+      display:flex;
+      flex-direction: column;
+      max-width: 800px;
+      margin: 0 auto;
+
+      input {
+        width: 80%;
+      }
+
+      .content-input {
+        height: 250px;
+      }
+    }
+}
