@@ -50,3 +50,25 @@ export const initialApplicationState: ApplicationState = {
 
   savedPosts: [],
 }
+
+export interface InternalServerError {
+  title: 'Internal Server Error'
+  status: 500
+  detail: string
+  timestamp: string
+  developerMessage: string
+  errors: any[]
+}
+
+export interface SignupSuccess {
+  access_token: string // looks like a UUID
+  token_type: 'bearer'
+  scope: 'read trust write'
+}
+
+export type SignupResponse = SignupSuccess | InternalServerError
+
+export interface LoginSuccessResponse {} // TODO: fill out
+
+export type LoginResponse = LoginSuccessResponse | InternalServerError
+export type LoginErrorResponse = InternalServerError
