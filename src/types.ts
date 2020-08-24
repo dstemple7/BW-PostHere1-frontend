@@ -1,5 +1,8 @@
 // TypeScript programs tend to have types that are used in many different places that all depend on each other. Because of this, it’s usually a good idea to centralize type definitions into a file, or multiple files, that don’t depend on anything else.
 
+import { Action as ReduxAction } from 'redux'
+import { ThunkAction } from 'redux-thunk'
+
 export interface LoginCredentials {
   email: string
   password: string
@@ -66,7 +69,15 @@ export interface SignupSuccess {
   scope: 'read trust write'
 }
 
+export type AppThunk<ReturnType = void> = ThunkAction<
+  ReturnType,
+  ApplicationState,
+  unknown,
+  ReduxAction<string>
+>
+
 export type SignupResponse = SignupSuccess | InternalServerError
+export type SignupErrorResponse = InternalServerError
 
 export interface LoginSuccessResponse {} // TODO: fill out
 
