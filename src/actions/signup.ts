@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from 'axios'
 
-import { LoginCredentials, AppThunk, SignupResponse, SignupErrorResponse } from '../types'
+import LoginCredentials from '../types/login'
+import { AppThunk, SignupResponse, SignupErrorResponse } from '../types'
 
 import { createLoginErrorAction } from '.'
 
