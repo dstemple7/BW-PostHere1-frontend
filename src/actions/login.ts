@@ -1,6 +1,18 @@
 import {
   LoginErrorResponse,
 } from '../types'
+import LoginCredentials from '../types/login';
+
+export const LOGIN_SUCCESS_ACTION = 'LOGIN_ACTION'
+
+export interface LoginSuccessAction {
+  type: typeof LOGIN_SUCCESS_ACTION
+  payload: LoginCredentials
+}
+
+//////////////////////
+// Login error action
+//
 
 export const LOGIN_ERROR_ACTION = 'LOGIN_ERROR_ACTION'
 
