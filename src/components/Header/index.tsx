@@ -11,24 +11,24 @@ const Header = (props: any) => {
       <h1>PostHere</h1>
       <nav>
         {!loggedIn && (
-          <>
+          <div className='header-links'>
             <Link to='/signup' className='link'>
               Sign Up
             </Link>
             <Link to='/login' className='link'>
               Login
             </Link>
-          </>
+          </div>
         )}
         {loggedIn && (
-          <>
+          <div className='header-links'>
             <Link to='/settings' className='link'>
               Settings
             </Link>
             <Link to='/logout' className='link'>
               Log Out
             </Link>
-          </>
+          </div>
         )}
       </nav>
     </div>
