@@ -1,5 +1,5 @@
 import { ApplicationState, initialApplicationState } from './types'
-import { Action, SIGNUP_ACTION, GET_RECOMMENDATION } from './actions'
+import { Action, SIGNUP_ACTION, GET_RECOMMENDATION, LOGIN_SUCCESS_ACTION } from './actions'
 
 export default function reducer(
   state: ApplicationState = initialApplicationState,
@@ -12,7 +12,7 @@ export default function reducer(
       // token in localStorage, and all’s right with the world
       // …so do nothing
       return state
-    case LOGIN_ACTION:
+    case LOGIN_SUCCESS_ACTION:
     default:
       return state
   }
