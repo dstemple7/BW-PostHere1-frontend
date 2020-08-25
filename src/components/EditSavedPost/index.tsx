@@ -25,8 +25,12 @@ const EditSavedPost = ({getRecommendations}: Props) => {
     getRecommendations(post)
   }
 
+  const handlePostUpdate = (e:any) => {
+    e.preventDefault()
+  }
+  
   return (<div>
-            <h2>Edit Post</h2>
+
         <form onSubmit={onSubmit}>
           <label>
             Post Title
@@ -49,7 +53,8 @@ const EditSavedPost = ({getRecommendations}: Props) => {
             />
           </label>
           <div className='button-group'>
-            <button>Save Post</button>
+            <button onClick={handlePostUpdate}>Update</button>
+            <button className='warning'>Delete</button>
             <button type='submit'>Get subreddit recommmendation</button>
           </div>
         </form>

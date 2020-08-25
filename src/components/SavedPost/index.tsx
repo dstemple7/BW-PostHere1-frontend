@@ -19,7 +19,7 @@ const SavedPost = (props: any) => {
 
   return (
     <div className='saved-post'>
-      {isEditing ? null :
+      {isEditing ? null : (
         <div>
           <h3>{content.title}</h3>
           <p>{content.body}</p>
@@ -31,10 +31,10 @@ const SavedPost = (props: any) => {
             </button>
           </div>
         </div>
-      }
+      )}
       {isEditing ? (
         <div>
-          <EditSavedPost/>
+          <EditSavedPost />
         </div>
       ) : null}
     </div>
