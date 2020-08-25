@@ -9,6 +9,10 @@ const SavedPost = (props: any) => {
       <h3>{content.title}</h3>
       <p>{content.body}</p>
       <h4>r/{content.subreddit}</h4>
+      <div className='button-group'>
+            <button>Edit </button>
+            <button className='warning'>Delete</button>
+          </div>
     </div>
   )
 }

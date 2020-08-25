@@ -1,32 +1,29 @@
 .create-post {
-  width: 70%;
+ width: 800px;
   margin: 0 auto;
 
-
     .create-post-form {
-      display:flex;
-      flex-direction: column;
-      border: 1px solid black;
-      border-radius: 0.2rem;
-      padding: 1rem;
-      margin-top: 1rem;
-      width:100%;
-
-      input {
-        width: 99%;
-        margin: .5rem auto;
-      }
-
+      width: 100%;
       .content-input {
         height: 250px;
       }
 
       .button-group {
-        margin: .5rem 0 ;
         display: flex;
         justify-content: space-between;
+        width: 92%;
+        margin: 1rem auto;
       }
 
       
     }
+
+}
+
+@media (max-width: 100px) {
+  width:800px;
+
+  .create-post{
+    width:95%;
+  }
 }
