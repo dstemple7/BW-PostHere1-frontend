@@ -1,4 +1,4 @@
-import TextPost from './post';
+import TextPost from './post'
 
 export interface ApplicationState {
   username: string
@@ -21,7 +21,7 @@ export const initialApplicationState: ApplicationState = {
   isLoadingFromDS: false,
   isLoadingFromBackend: false,
 
-  inProgressPost: { title: '', body: '' },
+  inProgressPost: { title: '', body: '', recs: [] },
 
   searchText: '',
 

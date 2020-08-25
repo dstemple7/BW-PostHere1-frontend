@@ -1,45 +1,57 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
+import { ConnectedProps, connect } from 'react-redux'
+
+import { ApplicationState } from '../../types'
+import { getRecommendations } from '../../actions'
+
 import './style.scss'
+import TextPost from '../../types/post'
 
-const initialFormValues = {
-  title:'',
-  body:''
-}
+const CreatePost = ({getRecommendations}: Props) => {
+  const [title, setTitle] = useState('')
+  const [body, setBody] = useState('')
 
-const CreatePost = (props: any) => {
-  const [formValues, setFormValues] = useState(initialFormValues)
+  function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
 
-    const onFormChange = (e:any) => {
-      
+    const post: TextPost = {
+      title,
+      body,
+      recs: [],
     }
+    console.log('in onSubmit…', post)
 
-    const onSavePost = (e:any) => {
-      e.preventDefault()
-      
-      setFormValues(initialFormValues)
-    }
+    getRecommendations(post)
+  }
 
   return (
     <>
       <section className='create-post'>
         <h2>Create a post</h2>
-        <div className='create-post-form'>
-        <form >
-          <input placeholder='Title' 
-          type='text' 
-          name='title'
-          value={formValues.title}
-          />
-          <input
-            name = 'title'
-            type='textarea'
-            className='content-input'
-            placeholder='Post content'
-            value=''
-          />
+        <form className='create-post-form' onSubmit={onSubmit}>
+          <label>
+            Post Title
+            <br />
+            <input
+              type='text'
+              name='title'
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+          </label>
+          <label>
+            Post
+            <br />
+            <textarea
+              className='content-input'
+              name='body'
+              value={body}
+              onChange={(e) => setBody(e.target.value)}
+            />
+          </label>
           <div className='button-group'>
-            <button>Get r/ Recommendation</button>
             <button>Save Post</button>
+            <button type='submit'>Get subreddit recommmendation</button>
           </div>
         </form>
         </div>
@@ -48,4 +60,16 @@ const CreatePost = (props: any) => {
   )
 }
 
-export default CreatePost
+const mapStateToProps = (state: ApplicationState) => state // identity function
+
+const mapDispatchToProps = {
+  getRecommendations,
+}
+
+const connector = connect(mapStateToProps, mapDispatchToProps)
+
+type PropsFromRedux = ConnectedProps<typeof connector>
+
+type Props = PropsFromRedux // & {} // totally local props
+
+export default connector(CreatePost)

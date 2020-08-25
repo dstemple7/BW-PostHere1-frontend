@@ -12,6 +12,19 @@ export interface SignupAction {
   payload: string // the access token
 }
 
+/**
+ *
+ * @param payload The access token.
+ */
+export const createSignupAction = (payload: string): SignupAction => ({
+  type: SIGNUP_ACTION,
+  payload,
+})
+
+////////////////////////
+// Signup error actions
+//
+
 export const SIGNUP_ERROR_ACTION = 'SIGNUP_ERROR_ACTION'
 
 export interface SignupErrorAction {
@@ -26,15 +39,10 @@ export const createSignupErrorAction = (
   payload,
 })
 
+//////////
+// Thunks
+//
 
-/**
- *
- * @param payload The access token.
- */
-export const createSignupAction = (payload: string): SignupAction => ({
-  type: SIGNUP_ACTION,
-  payload,
-})
 
 export const signUp = (credentials: LoginCredentials): AppThunk<void> => async (
   dispatch
