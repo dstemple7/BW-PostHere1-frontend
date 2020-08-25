@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react'
+import formSchema from './formSchema'
+import * as yup from 'yup'
 
 import './style.scss'
 
@@ -20,6 +22,14 @@ export default function Login() {
 
   const [ loginValues, setLoginValues ] = useState(initialLogInValues)
   const [ errors, setErrors ] = useState(initialErrorValues);
+  const [ disabled, setDisabled ] = useState(true);
+
+  useEffect(() => {
+    formSchema.isValid(loginValues)
+      .then(valid => {
+        setDisabled(!valid);
+      })
+  }, [loginValues])
 
   const onChange = (evt) => {
     const name = evt.target.name
@@ -29,11 +39,25 @@ export default function Login() {
 
   const validateChange = (name, value) => {
 
+    yup
+      .reach(formSchema, name)
+      .validate(value)
+      .then( valid => {
+        setErrors({...errors, [name]: ''})
+      })
+      .catch( error => {
+        setErrors({...errors, [name]: error.errors[0]})
+      })
     setLoginValues({...loginValues, [name]: value})
   }
   
   const onSubmit = (evt) => {
-  
+    evt.preventDefault()
+    const loginSubmit = {
+      username: loginValues.username.trim(),
+      password: loginValues.password.trim()
+    }
+    console.log(loginSubmit)
   }
 
   return (
@@ -42,27 +66,28 @@ export default function Login() {
       <form onSubmit={onSubmit}>
         <h1>Login</h1>
         <label>Username:</label>
+        <p className='error'>{errors.username}</p>
         <input
           name='username'
           type='text'
           placeholder='username'
           value={loginValues.username}
           onChange={onChange}
-
         />
         <label>Password:</label>
+        <p className='error'>{errors.password}</p>
         <input
           name='password'
           type='password'
           placeholder='password'
           value={loginValues.password}
           onChange={onChange}
-          
         />
         <input
           name='submit'
           type='submit'
           value='submit'
+          disabled={disabled}
 
         />
       </form>
