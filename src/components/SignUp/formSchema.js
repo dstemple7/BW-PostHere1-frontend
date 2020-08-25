@@ -6,7 +6,11 @@ const formSchema = yup.object().shape({
     .required('username required'),
   password: yup
     .string().min(5)
-    .required('password required')
+    .required('password required'),
+  confirmPassword: yup
+    .string()
+    .oneOf([yup.ref('password'), null], 'passwords do not match!')
+    .required('confirm password required')
 })
 
 export default formSchema

@@ -86,7 +86,7 @@ export default function SignUp() {
           onChange={onChange}
         />
          <label>Confirm Password:</label>
-        <p className='error'>{errors.password}</p>
+        <p className='error'>{ !disabled ? null : errors.confirmPassword}</p>
         <input
           name='confirmPassword'
           type='password'
