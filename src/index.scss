@@ -100,7 +100,13 @@ form {
     background-color: $reddit-form;
     border-radius: 0.2rem;
     border: 1px solid;
-    width: 92%;
+    width: 90%;
+  }
+
+  textarea {
+    border:1px solid;
+    border-radius: 0.2rem;
+    width: 90%;
   }
 }
 
