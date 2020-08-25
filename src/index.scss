@@ -4,6 +4,14 @@
   src: url(/fonts/noto-mono/NotoMono-Regular.woff2);
 }
 
+//color variables
+$reddit-blue: #0079d3;
+$reddit-light-blue: #7fbce9;
+$reddit-red: #ff4500;
+$reddit-red-selected: #ff6a33;
+$reddit-gray: #dae0e6;
+$reddit-form: #f8f9fa;
+
 :root {
   color-scheme: light dark;
 
@@ -11,6 +19,11 @@
   --font-stack--monospace: 'Noto Mono', Menlo, Consolas, monospace;
 
   --color--reddit-blue: #0079D3; // from New Reddit's --newCommunityTheme-button
+  --color--reddit-blue-hover: #7fbce9;
+  --color--reddit-red:#ff4500;
+  --color--reddit-red-hover:#ff6a33;
+  --color--reddit-gray: #dae0e6;
+
 }
 
 // Literally the only reason why all this is in an @media block is so the :root inside can be at the same nesting level as the @media (prefers-color-scheme: dark) block.
@@ -23,6 +36,7 @@
     --color--text--link-visited: hsl(270, 100%, 25%);
 
     --color--text--subreddit-suggestion: var(--color--reddit-blue);
+  
   }
 }
 
@@ -54,4 +68,46 @@ a:visited {
 
 code {
   font-family: var(--font-stack--monospace);
+}
+
+button {
+  padding: 0.5rem;
+  background-color: var(--color--reddit-blue);
+  border: none;
+  border-radius: 0.2rem;
+  color: white;
+  font-weight: bold;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:hover {
+    background-color: var(--color--reddit-blue-hover);
+  }
+
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid;
+  border-radius: 0.2rem;
+
+  input {
+    margin: 0.7rem auto;
+    padding: 1rem 0 1rem 1rem;
+    background-color: $reddit-form;
+    border-radius: 0.2rem;
+    border: 1px solid;
+    width: 92%;
+  }
+}
+
+.warning {
+  background-color: var(--color--reddit-red);
+
+  &:hover {
+    background-color: var(--color--reddit-red-hover);;
+  }
 }

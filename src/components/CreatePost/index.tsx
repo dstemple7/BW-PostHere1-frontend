@@ -54,6 +54,7 @@ const CreatePost = ({getRecommendations}: Props) => {
             <button type='submit'>Get subreddit recommmendation</button>
           </div>
         </form>
+        </div>
       </section>
     </>
   )

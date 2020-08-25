@@ -3,9 +3,19 @@
   border-radius: 0.2rem;
   padding: 1rem;
   margin-top: 1rem;
-  width:100%;
 
   h4{
     color: var(--color--text--subreddit-suggestion);
   }
+
+  .button-group {
+    margin: .5rem 0 ;
+    display: flex;
+    justify-content: flex-start;
+
+    button {
+      margin: 0 1rem 0 0;
+    }
+  }
+
 }
