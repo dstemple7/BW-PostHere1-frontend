@@ -8,7 +8,6 @@ import SavedList from '../SavedList'
 const Dashboard = (props: any) => {
   return (
     <>
-      <Header />
       <div className='dashboard'>
         <CreatePost />
         <SavedList />
