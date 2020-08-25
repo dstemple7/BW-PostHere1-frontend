@@ -14,7 +14,6 @@ export default function reducer(
       return state
     case LOGIN_SUCCESS_ACTION: 
        return { ...state }
-      return state
     default:
       return state
   }

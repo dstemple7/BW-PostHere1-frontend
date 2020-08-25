@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import './style.scss'
 import SavedPost from '../SavedPost'
 
@@ -18,11 +18,33 @@ const savedContent = [
 ]
 
 const SavedList = (props: any) => {
+
+  const [ search, setSearch ] = useState('')
+  const [ contents, setContents ] = useState(savedContent)
+
+  const onChange = (evt: any) => {
+    setSearch(evt.target.value)
+  }
+
+  useEffect(() => {
+    const newContents = savedContent.filter( post => post.title.includes(search) || post.body.includes(search) || post.subreddit.includes(search) )
+    setContents(newContents)
+  }, [search])
+
   return (
     <div className='saved-list'>
       <h2>Saved posts</h2>
-      {savedContent.map((content) => {
-        return <SavedPost content={content} />
+      <form>
+        <label>Search:</label>
+        <input
+          name='search'
+          type='text'
+          value={search}
+          onChange={onChange}
+        />
+      </form>
+      {contents.map((post) => {
+        return <SavedPost content={post} />
       })}
     </div>
   )

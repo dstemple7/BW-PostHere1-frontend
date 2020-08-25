@@ -60,10 +60,7 @@ const CreatePost = ({ getRecommendations, inProgressPost }: Props) => {
               onChange={(e) => setBody(e.target.value)}
             />
           </label>
-          <div className='button-group'>
-            <button>Save Post</button>
-            <button type='submit'>Get subreddit recommmendation</button>
-          </div>
+          <button type='submit'>Get subreddit recommmendation</button>
           {elementSuggestions.length === 0 ? (
             ''
           ) : (
@@ -73,6 +70,10 @@ const CreatePost = ({ getRecommendations, inProgressPost }: Props) => {
               </p>
             </div>
           )}
+          <div className='button-group'>
+            <button>Save Post</button>
+          </div>
+          
         </form>
       </section>
     </>
