@@ -7,13 +7,12 @@ import { getRecommendations } from '../../actions'
 import './style.scss'
 import TextPost from '../../types/post'
 
-const CreatePost = (props: Props) => {
+const CreatePost = ({getRecommendations}: Props) => {
   const [title, setTitle] = useState('')
   const [body, setBody] = useState('')
 
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
-
 
     const post: TextPost = {
       title,
