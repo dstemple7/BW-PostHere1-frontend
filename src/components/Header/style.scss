@@ -1,0 +1,21 @@
+.header {
+  background-color: #FF4500;
+  border: 1px solid white;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.link {
+  margin: 1rem;
+  padding: .5rem;
+  text-decoration: none;
+  border: 1px solid white;
+  border-radius: 10px;
+}
+
+.link:hover{
+  background-color: white;
+  color: #FF4500;
+}
