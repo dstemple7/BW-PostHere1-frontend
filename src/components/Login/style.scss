@@ -1,1 +1,21 @@
 // Styles go here.
+
+.container {
+  width: 60%;
+  margin: auto;
+  form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      label {
+          margin: 1%;
+      }
+      input {
+          margin: 1%;
+      }
+    }
+}
+
+.error {
+  color: red;
+}
