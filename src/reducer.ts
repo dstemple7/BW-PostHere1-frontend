@@ -12,6 +12,7 @@ export default function reducer(
       // token in localStorage, and all’s right with the world
       // …so do nothing
       return state
+    case LOGIN_ACTION:
     default:
       return state
   }

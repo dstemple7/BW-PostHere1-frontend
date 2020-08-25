@@ -4,14 +4,6 @@
   src: url(/fonts/noto-mono/NotoMono-Regular.woff2);
 }
 
-//color variables
-$reddit-blue: #0079d3;
-$reddit-light-blue: #7fbce9;
-$reddit-red: #ff4500;
-$reddit-red-selected: #ff6a33;
-$reddit-gray: #dae0e6;
-$reddit-form: #f8f9fa; // TODO: What is the dark-mode equivalent of this color?
-
 :root {
   color-scheme: light dark;
 
@@ -97,7 +89,6 @@ form {
   input {
     margin: 0.7rem auto;
     padding: 1rem 0 1rem 1rem;
-    // background-color: $reddit-form; // disabled until we can get a color-scheme-agnostic color
     border-radius: 0.2rem;
     border: 1px solid;
     width: 90%;
@@ -116,4 +107,8 @@ form {
   &:hover {
     background-color: var(--color--reddit-red-hover);;
   }
+}
+
+.header {
+  background-color: var(--color--reddit-blue);
 }
