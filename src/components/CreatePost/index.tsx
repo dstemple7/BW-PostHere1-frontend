@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { ConnectedProps, connect } from 'react-redux'
 
 import { ApplicationState } from '../../types'
@@ -6,10 +6,21 @@ import { getRecommendations } from '../../actions'
 
 import './style.scss'
 import TextPost from '../../types/post'
+import intersperse from '../../util/intersperse'
 
-const CreatePost = ({getRecommendations}: Props) => {
+const CreatePost = ({ getRecommendations, inProgressPost }: Props) => {
   const [title, setTitle] = useState('')
   const [body, setBody] = useState('')
+  const [elementSuggestions, setElementSuggestions] = useState(
+    [] as JSX.Element[]
+  )
+
+  useEffect(() => {
+    const suggestions = inProgressPost.recs.map((r) => '/r/' + r.subreddit)
+    setElementSuggestions(
+      suggestions.map((s) => <a href={`https://reddit.com${s}`}>{s}</a>)
+    )
+  }, [inProgressPost])
 
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -53,6 +64,15 @@ const CreatePost = ({getRecommendations}: Props) => {
             <button>Save Post</button>
             <button type='submit'>Get subreddit recommmendation</button>
           </div>
+          {elementSuggestions.length === 0 ? (
+            ''
+          ) : (
+            <div>
+              <p>
+                Subreddit Suggestions: {intersperse(elementSuggestions, ' · ')}
+              </p>
+            </div>
+          )}
         </form>
       </section>
     </>

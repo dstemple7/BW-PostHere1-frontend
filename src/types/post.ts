@@ -5,6 +5,6 @@ export default interface TextPost {
 }
 
 export interface SubredditSuggestion {
-  sub: string
+  subreddit: string
   probability: number
 }
