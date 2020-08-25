@@ -17,6 +17,8 @@ $reddit-form: #f8f9fa;
 
   --font-stack--normal: 'Noto Sans', Verdana, sans-serif;
   --font-stack--monospace: 'Noto Mono', Menlo, Consolas, monospace;
+
+  --color--reddit-blue: #0079D3; // from New Reddit's --newCommunityTheme-button
 }
 
 // Literally the only reason why all this is in an @media block is so the :root inside can be at the same nesting level as the @media (prefers-color-scheme: dark) block.
@@ -27,6 +29,8 @@ $reddit-form: #f8f9fa;
 
     --color--text--link-unvisited: hsl(180, 100%, 25%);
     --color--text--link-visited: hsl(270, 100%, 25%);
+
+    --color--text--subreddit-suggestion: var(--color--reddit-blue);
   }
 }
 
@@ -37,6 +41,9 @@ $reddit-form: #f8f9fa;
 
     --color--text--link-unvisited: hsl(180, 80%, 50%);
     --color-text--link-visited: hsl(270, 80%, 70%);
+
+    // Actually the same color as in light mode. Unlike most text colors, this one works well enough against both a light and dark background, assuming you don’t need a particularly high contrast ratio.
+    --color--text--subreddit-suggestion: var(--color--reddit-blue);
   }
 }
 

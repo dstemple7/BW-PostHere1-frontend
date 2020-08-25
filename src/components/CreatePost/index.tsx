@@ -1,14 +1,23 @@
-import React from 'react'
+import React, {useState} from 'react'
 import './style.scss'
 
-
-initialFormValues = {
+const initialFormValues = {
   title:'',
   body:''
 }
 
 const CreatePost = (props: any) => {
-  useState[formValues, setFormValues] = useState(initialFormValues)
+  const [formValues, setFormValues] = useState(initialFormValues)
+
+    const onFormChange = (e:any) => {
+      
+    }
+
+    const onSavePost = (e:any) => {
+      e.preventDefault()
+      
+      setFormValues(initialFormValues)
+    }
 
   return (
     <>
@@ -18,9 +27,11 @@ const CreatePost = (props: any) => {
         <form >
           <input placeholder='Title' 
           type='text' 
-          value=''
+          name='title'
+          value={formValues.title}
           />
           <input
+            name = 'title'
             type='textarea'
             className='content-input'
             placeholder='Post content'
