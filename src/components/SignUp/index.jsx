@@ -8,28 +8,30 @@ import './style.scss'
 // Then, have me (Nathan) handy, because it'll probably immediately complain about implicit-any problems.
 // I'll walk you through them to get your code compiling again. After that, we can work on getting better types for you, like typing the on-form-submit event as a React.FormEvent<HTMLFormElement>.
 
-const initialLogInValues = {
+const initialSignUpValues = {
   username: '',
-  password: ''
+  password1: '',
+  confirmPassword: ''
 }
 
 const initialErrorValues = {
   username: '',
-  password: ''
+  password1: '',
+  confirmPassword: ''
 }
 
-export default function Login() {
+export default function SignUp() {
 
-  const [ loginValues, setLoginValues ] = useState(initialLogInValues)
+  const [ signUpValues, setSignUpValues ] = useState(initialSignUpValues)
   const [ errors, setErrors ] = useState(initialErrorValues);
   const [ disabled, setDisabled ] = useState(true);
 
   useEffect(() => {
-    formSchema.isValid(loginValues)
+    formSchema.isValid(signUpValues)
       .then(valid => {
         setDisabled(!valid);
       })
-  }, [loginValues])
+  }, [signUpValues])
 
   const onChange = (evt) => {
     const name = evt.target.name
@@ -48,14 +50,14 @@ export default function Login() {
       .catch( error => {
         setErrors({...errors, [name]: error.errors[0]})
       })
-    setLoginValues({...loginValues, [name]: value})
+    setSignUpValues({...signUpValues, [name]: value})
   }
   
   const onSubmit = (evt) => {
     evt.preventDefault()
     const loginSubmit = {
-      username: loginValues.username.trim(),
-      password: loginValues.password.trim()
+      username: signUpValues.username.trim(),
+      password: signUpValues.password.trim()
     }
     console.log(loginSubmit)
   }
@@ -64,14 +66,14 @@ export default function Login() {
   <>
     <div className='container'>
       <form onSubmit={onSubmit}>
-        <h1>Login</h1>
+        <h1>Sign Up</h1>
         <label>Username:</label>
         <p className='error'>{errors.username}</p>
         <input
           name='username'
           type='text'
           placeholder='username'
-          value={loginValues.username}
+          value={signUpValues.username}
           onChange={onChange}
         />
         <label>Password:</label>
@@ -80,13 +82,22 @@ export default function Login() {
           name='password'
           type='password'
           placeholder='password'
-          value={loginValues.password}
+          value={signUpValues.password}
+          onChange={onChange}
+        />
+         <label>Confirm Password:</label>
+        <p className='error'>{errors.password}</p>
+        <input
+          name='confirmPassword'
+          type='password'
+          placeholder='password'
+          value={signUpValues.confirmPassword}
           onChange={onChange}
         />
         <input
           name='submit'
           type='submit'
-          value='login'
+          value='sign up'
           disabled={disabled}
 
         />

@@ -10,7 +10,7 @@ $reddit-light-blue: #7fbce9;
 $reddit-red: #ff4500;
 $reddit-red-selected: #ff6a33;
 $reddit-gray: #dae0e6;
-$reddit-form: #f8f9fa;
+$reddit-form: #f8f9fa; // TODO: What is the dark-mode equivalent of this color?
 
 :root {
   color-scheme: light dark;
@@ -97,10 +97,16 @@ form {
   input {
     margin: 0.7rem auto;
     padding: 1rem 0 1rem 1rem;
-    background-color: $reddit-form;
+    // background-color: $reddit-form; // disabled until we can get a color-scheme-agnostic color
     border-radius: 0.2rem;
     border: 1px solid;
-    width: 92%;
+    width: 90%;
+  }
+
+  textarea {
+    border:1px solid;
+    border-radius: 0.2rem;
+    width: 90%;
   }
 }
 
