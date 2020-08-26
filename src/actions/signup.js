@@ -1,25 +1,15 @@
-import LoginCredentials from '../types/login'
-import { AppThunk, SignupResponse, SignupErrorResponse } from '../types'
-
 import { createLoginErrorAction } from './login'
 
 import history from '../util/history'
-import axiosWithoutAuth, {AxiosResponse} from '../api/axiosWithoutAuth';
+import axiosWithoutAuth from '../api/axiosWithoutAuth'
 
 export const SIGNUP_SUCCESS_ACTION = 'SIGNUP_SUCCESS_ACTION'
-
-export interface SignupSuccessAction {
-  type: typeof SIGNUP_SUCCESS_ACTION
-  payload: string // the access token
-}
 
 /**
  *
  * @param payload The access token.
  */
-export const createSignupSuccessAction = (
-  payload: string
-): SignupSuccessAction => ({
+export const createSignupSuccessAction = (payload) => ({
   type: SIGNUP_SUCCESS_ACTION,
   payload,
 })
@@ -30,14 +20,7 @@ export const createSignupSuccessAction = (
 
 export const SIGNUP_ERROR_ACTION = 'SIGNUP_ERROR_ACTION'
 
-export interface SignupErrorAction {
-  type: typeof SIGNUP_ERROR_ACTION
-  payload: any // TODO: flesh out
-}
-
-export const createSignupErrorAction = (
-  payload: SignupErrorResponse
-): SignupErrorAction => ({
+export const createSignupErrorAction = (payload) => ({
   type: SIGNUP_ERROR_ACTION,
   payload,
 })
@@ -46,11 +29,9 @@ export const createSignupErrorAction = (
 // Thunks
 //
 
-export const signUp = (credentials: LoginCredentials): AppThunk<void> => async (
-  dispatch
-) => {
+export const signUp = (credentials) => async (dispatch) => {
   try {
-    const resp: AxiosResponse<SignupResponse> = await axiosWithoutAuth().post(
+    const resp = await axiosWithoutAuth().post(
       '/createnewuser',
       credentials
     )
@@ -64,7 +45,6 @@ export const signUp = (credentials: LoginCredentials): AppThunk<void> => async (
 
       dispatch(createSignupSuccessAction(resp.data.access_token))
       history.push('/login')
-
     }
 
     // TODO: handle all the other cases that could crop up that aren't 4xx or 5xx errors

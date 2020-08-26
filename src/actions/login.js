@@ -1,18 +1,10 @@
-import axios, { AxiosResponse } from 'axios'
-
-import LoginCredentials from '../types/login'
-import { AppThunk, LoginSuccessResponse, LoginErrorResponse } from '../types'
+import axios from 'axios'
 
 import history from '../util/history'
 
 export const LOGIN_SUCCESS_ACTION = 'LOGIN_SUCCESS_ACTION'
 
-export interface LoginSuccessAction {
-  type: typeof LOGIN_SUCCESS_ACTION
-  payload: LoginCredentials
-}
-
-const createLoginSuccessAction = (payload: LoginCredentials) => ({
+const createLoginSuccessAction = (payload) => ({
   type: LOGIN_SUCCESS_ACTION,
   payload,
 })
@@ -23,23 +15,16 @@ const createLoginSuccessAction = (payload: LoginCredentials) => ({
 
 export const LOGIN_ERROR_ACTION = 'LOGIN_ERROR_ACTION'
 
-export interface LoginErrorAction {
-  type: typeof LOGIN_ERROR_ACTION
-  payload: string
-}
-
-export const createLoginErrorAction = (payload: string): LoginErrorAction => ({
+export const createLoginErrorAction = (payload) => ({
   type: LOGIN_ERROR_ACTION,
   payload,
 })
 
-export const logIn = (credentials: LoginCredentials): AppThunk<void> => async (
-  dispatch
-) => {
+export const logIn = (credentials) => async (dispatch) => {
   try {
     console.log('Preparing for awaiting…')
 
-    const resp: AxiosResponse<LoginSuccessResponse> = await axios.post(
+    const resp = await axios.post(
       'https://dstemple7-posthere.herokuapp.com/login',
       `grant_type=password&username=${credentials.username}&password=${credentials.password}`,
       {
