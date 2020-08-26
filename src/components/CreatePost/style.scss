@@ -13,10 +13,19 @@
     .button-group {
       display: flex;
       justify-content: space-between;
-      width: 92%;
       margin: 1rem auto;
     }
   }
+}
+
+.suggestions {
+  height: 6rem;
+  border: 1px solid;
+  margin-top: 1rem;
+  p{
+    padding-left: 1rem;
+  }
+
 }
 
 @media (min-width: 640px) {

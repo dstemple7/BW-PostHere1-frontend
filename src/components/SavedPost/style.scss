@@ -1,8 +1,12 @@
 .saved-post {
   border: 1px solid;
   border-radius: 0.2rem;
-  padding: 2rem;
-  margin-top: 1rem;
+  width: 800px;
+  margin: 1rem auto;
+
+  .saved-post-content {
+    padding: 2rem;
+  }
 
   h4{
     color: var(--color--text--subreddit-suggestion);
@@ -15,4 +19,9 @@
     
   }
 
+  @media (max-width: 850px) {
+    .create-post {
+      width: 95%;
+    }
+  }
 }
