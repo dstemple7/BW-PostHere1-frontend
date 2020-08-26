@@ -1,19 +1,15 @@
 import React, { useState, useEffect } from 'react'
-import { ConnectedProps, connect } from 'react-redux'
+import { connect } from 'react-redux'
 
-import { ApplicationState } from '../../types'
 import { getRecommendations } from '../../actions'
 
 import './style.scss'
-import TextPost from '../../types/post'
 import intersperse from '../../util/intersperse'
 
-const CreatePost = ({ getRecommendations, inProgressPost }: Props) => {
+const CreatePost = (props) => {
   const [title, setTitle] = useState('')
   const [body, setBody] = useState('')
-  const [elementSuggestions, setElementSuggestions] = useState(
-    [] as JSX.Element[]
-  )
+  const [elementSuggestions, setElementSuggestions] = useState([])
 
   useEffect(() => {
     const suggestions = inProgressPost.recs.map((r) => '/r/' + r.subreddit)
@@ -22,15 +18,14 @@ const CreatePost = ({ getRecommendations, inProgressPost }: Props) => {
     )
   }, [inProgressPost])
 
-  function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+  function onSubmit(e) {
     e.preventDefault()
 
-    const post: TextPost = {
+    const post = {
       title,
       body,
       recs: [],
     }
-    console.log('in onSubmit…', post)
 
     getRecommendations(post)
   }
@@ -76,16 +71,6 @@ const CreatePost = ({ getRecommendations, inProgressPost }: Props) => {
   )
 }
 
-const mapStateToProps = (state: ApplicationState) => state // identity function
+const mapStateToProps = (state) => state 
 
-const mapDispatchToProps = {
-  getRecommendations,
-}
-
-const connector = connect(mapStateToProps, mapDispatchToProps)
-
-type PropsFromRedux = ConnectedProps<typeof connector>
-
-type Props = PropsFromRedux // & {} // totally local props
-
-export default connector(CreatePost)
+export default connect(mapStateToProps, {getRecommendations})(CreatePost)

@@ -2,16 +2,16 @@ import React, { useState } from 'react'
 import './style.scss'
 import EditSavedPost from '../EditSavedPost'
 
-const SavedPost = (props: any) => {
+const SavedPost = (props) => {
   const [isEditing, setIsEditing] = useState(false)
   const { content } = props
 
-  const handleDeleteSavedPost = (e: React.MouseEvent) => {
+  const handleDeleteSavedPost = (e) => {
     e.preventDefault()
     console.log('delete')
   }
 
-  const handleEditSavedPost = (e: React.MouseEvent) => {
+  const handleEditSavedPost = (e) => {
     e.preventDefault()
     console.log('editing')
     setIsEditing(!isEditing)
