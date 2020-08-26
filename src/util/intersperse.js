@@ -1,5 +1,5 @@
-export default function intersperse<T, U>(things: T[], withItem: U) {
-  const ret: any[] = []
+export default function intersperse(things, withItem) {
+  const ret = []
   for (let i = 0; i < things.length; ++i) {
     ret.push(things[i])
 
