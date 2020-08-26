@@ -7,6 +7,16 @@
     border: 1px solid;
     border-radius: 0.2rem;
     padding: 2rem;
+  
+  input {
+    background-color: var(--color--background--textarea);
+    color: var(--color--text);
+  }
+
+  textarea {
+    background-color: var(--color--background--textarea);
+    color: var(--color--text);
+  }
 
     .button-group {
       display: flex;
