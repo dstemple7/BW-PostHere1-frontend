@@ -17,11 +17,11 @@ const savedContent = [
   },
 ]
 
-const SavedList = (props: any) => {
+const SavedList = (props) => {
   const [search, setSearch] = useState('')
   const [contents, setContents] = useState(savedContent)
 
-  const onChange = (evt: any) => {
+  const onChange = (evt) => {
     setSearch(evt.target.value)
   }
 

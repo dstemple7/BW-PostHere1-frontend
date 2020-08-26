@@ -2,7 +2,7 @@ import React from 'react'
 import {Link } from 'react-router-dom'
 import './style.scss'
 
-const Header = (props: any) => {
+const Header = (props) => {
   
   const loggedIn = !!localStorage.getItem('token')
   

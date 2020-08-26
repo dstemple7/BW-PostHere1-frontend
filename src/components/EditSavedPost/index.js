@@ -1,22 +1,30 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { connect } from 'react-redux'
 
 import { getRecommendations } from '../../actions'
 
 import './style.scss'
-import TextPost from '../../types/post'
+import intersperse from '../../util/intersperse'
 
-const EditSavedPost = (props: any) => {
+const EditSavedPost = (props) => {
+  const { getRecommendations, inProgressPost } = props
+
   const [title, setTitle] = useState(props.content.title)
   const [body, setBody] = useState(props.content.body)
-  const [elementSuggestions, setElementSuggestions] = useState(
-    
-    props.content.recs as JSX.Element[]
-  )
+  const [elementSuggestions, setElementSuggestions] = useState(props.content.recs)
+  const [elementSuggestionsAsLinks, setElementSuggestionsAsLinks] = useState([])
 
-  function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+  useEffect(() => {
+    const suggestions = inProgressPost.recs.map((r) => '/r/' + r.subreddit)
+    setElementSuggestionsAsLinks(
+      suggestions.map((s) => <a href={`https://reddit.com${s}`}>{s}</a>)
+    )
+  }, [inProgressPost])
+
+  function onSubmit(e) {
     e.preventDefault()
 
-    const post: TextPost = {
+    const post = {
       title,
       body,
       recs: [],
@@ -25,7 +33,7 @@ const EditSavedPost = (props: any) => {
     getRecommendations(post)
   }
 
-  const handlePostUpdate = (e: any) => {
+  const handlePostUpdate = (e) => {
     e.preventDefault()
     props.setIsEditing(false)
   }
@@ -58,15 +66,20 @@ const EditSavedPost = (props: any) => {
         </div>
         <div className='suggestions'>
           <p>Subreddit Suggestions:</p>
-          <p>/dolphins</p>
+          <p>{intersperse(elementSuggestions, ' · ')}</p>
         </div>
         <div className='button-group'>
           <button onClick={handlePostUpdate}>Done</button>
-          <button className='warning' onClick={props.handleDeleteSavedPost}>Delete</button>
+          <button className='warning' onClick={props.handleDeleteSavedPost}>
+            Delete
+          </button>
         </div>
       </form>
     </div>
   )
 }
 
-export default EditSavedPost
+const mapStateToProps = (state) => state
+
+
+export default connect(mapStateToProps, { getRecommendations, inProgressPost })(EditSavedPost)
