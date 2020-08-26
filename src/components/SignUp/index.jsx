@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { connect } from 'react-redux';
+import { connect } from 'react-redux'
+
+import { signUp } from '../../actions/signup'
 
 import formSchema from './formSchema'
 import * as yup from 'yup'
@@ -22,7 +24,7 @@ const initialErrorValues = {
   confirmPassword: '',
 }
 
-function SignUp() {
+function SignUp(props) {
   const [signUpValues, setSignUpValues] = useState(initialSignUpValues)
   const [errors, setErrors] = useState(initialErrorValues)
   const [disabled, setDisabled] = useState(true)
@@ -59,6 +61,7 @@ function SignUp() {
       password: signUpValues.password.trim(),
     }
     console.log(loginSubmit)
+    props.signUp(loginSubmit)
   }
 
   return (
@@ -107,6 +110,6 @@ function SignUp() {
 
 const mapStateToProps = (state) => state
 
-const mapDispatchToProps = {}
+const mapDispatchToProps = { signUp }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignUp)

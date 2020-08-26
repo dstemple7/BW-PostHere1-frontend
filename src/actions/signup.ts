@@ -1,13 +1,10 @@
-import axiosWithAuth, { AxiosResponse } from '../api/axiosWithAuth'
-
 import LoginCredentials from '../types/login'
-import {
-  AppThunk,
-  SignupResponse,
-  SignupErrorResponse,
-} from '../types'
+import { AppThunk, SignupResponse, SignupErrorResponse } from '../types'
 
 import { createLoginErrorAction } from './login'
+
+import history from '../util/history'
+import axiosWithoutAuth, {AxiosResponse} from '../api/axiosWithoutAuth';
 
 export const SIGNUP_SUCCESS_ACTION = 'SIGNUP_SUCCESS_ACTION'
 
@@ -53,7 +50,7 @@ export const signUp = (credentials: LoginCredentials): AppThunk<void> => async (
   dispatch
 ) => {
   try {
-    const resp: AxiosResponse<SignupResponse> = await axiosWithAuth().put(
+    const resp: AxiosResponse<SignupResponse> = await axiosWithoutAuth().post(
       '/createnewuser',
       credentials
     )
@@ -63,12 +60,16 @@ export const signUp = (credentials: LoginCredentials): AppThunk<void> => async (
     if ('access_token' in resp.data) {
       // definitely a success response
       localStorage.setItem('token', resp.data.access_token)
+      console.log(resp)
+
       dispatch(createSignupSuccessAction(resp.data.access_token))
-      
+      history.push('/login')
+
     }
 
     // TODO: handle all the other cases that could crop up that aren't 4xx or 5xx errors
   } catch (e) {
-    dispatch(createLoginErrorAction(e.toString()))
+    console.error(e.response)
+    dispatch(createLoginErrorAction(e.response.toString()))
   }
 }
