@@ -23,7 +23,7 @@ const SavedPost = (props: any) => {
         <div className='saved-post-content'>
           <h3>{content.title}</h3>
           <p>{content.body}</p>
-          <h4>r/{content.subreddit}</h4>
+          <h4>r/{content.recs}</h4>
           <div className='button-group'>
             <button onClick={handleEditSavedPost}>Edit </button>
             <button className='warning' onClick={handleDeleteSavedPost}>

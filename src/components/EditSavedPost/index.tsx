@@ -9,6 +9,7 @@ const EditSavedPost = (props: any) => {
   const [title, setTitle] = useState(props.content.title)
   const [body, setBody] = useState(props.content.body)
   const [elementSuggestions, setElementSuggestions] = useState(
+    
     props.content.recs as JSX.Element[]
   )
 
@@ -31,7 +32,7 @@ const EditSavedPost = (props: any) => {
 
   return (
     <div>
-      <form className='update-post-form' onSubmit={onSubmit}>
+      <form className='edit-saved-post' onSubmit={onSubmit}>
         <label>
           Title
           <br />
@@ -53,7 +54,7 @@ const EditSavedPost = (props: any) => {
           />
         </label>
         <div className='button-group'>
-          <button type='submit'>Get subreddit recommmendation</button>
+          <button type='submit'>Get subreddit suggestions</button>
         </div>
         <div className='suggestions'>
           <p>Subreddit Suggestions:</p>

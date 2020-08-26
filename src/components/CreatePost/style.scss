@@ -3,12 +3,10 @@
   margin: 0 auto;
 
   .create-post-form {
-    display: flex;
-    flex-direction: column;
+
     border: 1px solid;
     border-radius: 0.2rem;
     padding: 2rem;
-    margin-top: 1rem;
 
     .button-group {
       display: flex;
