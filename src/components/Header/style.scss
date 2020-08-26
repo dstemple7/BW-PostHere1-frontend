@@ -1,21 +1,25 @@
+
 .header {
-  background-color: #FF4500;
-  border: 1px solid white;
-  border-radius: 10px;
+  background-color: var(--color--reddit-red);
+  border-radius: .2rem;
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
+
+  h1 {
+    padding: 0 2rem;
+  }
+
+  .link {
+    margin: 1rem;
+    padding: .5rem;
+    text-decoration: none;
+    border-radius: .2rem;
+  }
+  
+  .link:hover{
+    background-color: white;
+    color: var(--color--reddit-red);
+  }
 }
 
-.link {
-  margin: 1rem;
-  padding: .5rem;
-  text-decoration: none;
-  border: 1px solid white;
-  border-radius: 10px;
-}
-
-.link:hover{
-  background-color: white;
-  color: #FF4500;
-}

@@ -14,16 +14,16 @@ const SavedPost = (props: any) => {
   const handleEditSavedPost = (e: React.MouseEvent) => {
     e.preventDefault()
     console.log('editing')
-    setIsEditing(true)
+    setIsEditing(!isEditing)
   }
 
   return (
     <div className='saved-post'>
       {isEditing ? null : (
-        <div>
+        <div className='saved-post-content'>
           <h3>{content.title}</h3>
           <p>{content.body}</p>
-          <h4>r/{content.subreddit}</h4>
+          <h4>r/{content.recs}</h4>
           <div className='button-group'>
             <button onClick={handleEditSavedPost}>Edit </button>
             <button className='warning' onClick={handleDeleteSavedPost}>
@@ -33,8 +33,8 @@ const SavedPost = (props: any) => {
         </div>
       )}
       {isEditing ? (
-        <div>
-          <EditSavedPost />
+        <div className='saved-post-content'>
+          <EditSavedPost content={content} setIsEditing={setIsEditing} handleDeleteSavedPost={handleDeleteSavedPost}/>
         </div>
       ) : null}
     </div>

@@ -5,7 +5,11 @@ export default interface LoginCredentials {
   password: string
 }
 
-export interface LoginSuccessResponse {} // TODO: fill out
+export interface LoginSuccessResponse {
+  access_token: string // looks like a UUID
+  token_type: 'bearer'
+  scope: 'read trust write'
+}
 
 export type LoginResponse = LoginSuccessResponse | InternalServerError
 export type LoginErrorResponse = InternalServerError

@@ -1,16 +1,17 @@
 import React, { useState } from 'react'
-import { ConnectedProps, connect } from 'react-redux'
 
-import { ApplicationState } from '../../types'
 import { getRecommendations } from '../../actions'
 
 import './style.scss'
 import TextPost from '../../types/post'
 
-const EditSavedPost = ({getRecommendations}: Props) => {
-
-  const [title, setTitle] = useState('')
-  const [body, setBody] = useState('')
+const EditSavedPost = (props: any) => {
+  const [title, setTitle] = useState(props.content.title)
+  const [body, setBody] = useState(props.content.body)
+  const [elementSuggestions, setElementSuggestions] = useState(
+    
+    props.content.recs as JSX.Element[]
+  )
 
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -20,58 +21,52 @@ const EditSavedPost = ({getRecommendations}: Props) => {
       body,
       recs: [],
     }
-    console.log('in onSubmit…', post)
 
     getRecommendations(post)
   }
 
-  const handlePostUpdate = (e:any) => {
+  const handlePostUpdate = (e: any) => {
     e.preventDefault()
+    props.setIsEditing(false)
   }
-  
-  return (<div>
 
-        <form onSubmit={onSubmit}>
-          <label>
-            Post Title
-            <br />
-            <input
-              type='text'
-              name='title'
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-            />
-          </label>
-          <label>
-            Post
-            <br />
-            <textarea
-              className='content-input'
-              name='body'
-              value={body}
-              onChange={(e) => setBody(e.target.value)}
-            />
-          </label>
-          <div className='button-group'>
-            <button onClick={handlePostUpdate}>Update</button>
-            <button className='warning'>Delete</button>
-            <button type='submit'>Get subreddit recommmendation</button>
-          </div>
-        </form>
-  </div>)
-
+  return (
+    <div>
+      <form className='edit-saved-post' onSubmit={onSubmit}>
+        <label>
+          Title
+          <br />
+          <input
+            type='text'
+            name='title'
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
+        </label>
+        <label>
+          Content
+          <br />
+          <textarea
+            className='content-input'
+            name='body'
+            value={body}
+            onChange={(e) => setBody(e.target.value)}
+          />
+        </label>
+        <div className='button-group'>
+          <button type='submit'>Get subreddit suggestions</button>
+        </div>
+        <div className='suggestions'>
+          <p>Subreddit Suggestions:</p>
+          <p>/dolphins</p>
+        </div>
+        <div className='button-group'>
+          <button onClick={handlePostUpdate}>Done</button>
+          <button className='warning' onClick={props.handleDeleteSavedPost}>Delete</button>
+        </div>
+      </form>
+    </div>
+  )
 }
 
-const mapStateToProps = (state: ApplicationState) => state // identity function
-
-const mapDispatchToProps = {
-  getRecommendations,
-}
-
-const connector = connect(mapStateToProps, mapDispatchToProps)
-
-type PropsFromRedux = ConnectedProps<typeof connector>
-
-type Props = PropsFromRedux // & {} // totally local props
-
-export default connector(EditSavedPost)
+export default EditSavedPost

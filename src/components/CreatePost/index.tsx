@@ -41,7 +41,7 @@ const CreatePost = ({ getRecommendations, inProgressPost }: Props) => {
         <h2>Create a post</h2>
         <form className='create-post-form' onSubmit={onSubmit}>
           <label>
-            Post Title
+            Title
             <br />
             <input
               type='text'
@@ -51,7 +51,7 @@ const CreatePost = ({ getRecommendations, inProgressPost }: Props) => {
             />
           </label>
           <label>
-            Post
+            Content
             <br />
             <textarea
               className='content-input'
@@ -61,18 +61,20 @@ const CreatePost = ({ getRecommendations, inProgressPost }: Props) => {
             />
           </label>
           <div className='button-group'>
-            <button>Save Post</button>
-            <button type='submit'>Get subreddit recommmendation</button>
+          <button type='submit'>Get subreddit suggestions</button>
           </div>
-          {elementSuggestions.length === 0 ? (
-            ''
-          ) : (
-            <div>
+          <div className='suggestions'>
               <p>
-                Subreddit Suggestions: {intersperse(elementSuggestions, ' · ')}
+                Subreddit Suggestions: 
+              </p>
+              <p>
+              {intersperse(elementSuggestions, ' · ')}
               </p>
             </div>
-          )}
+          <div className='button-group'>
+            <button>Save Post</button>
+          </div>
+          
         </form>
       </section>
     </>

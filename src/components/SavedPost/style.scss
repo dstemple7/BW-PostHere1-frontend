@@ -1,8 +1,13 @@
 .saved-post {
   border: 1px solid;
   border-radius: 0.2rem;
-  padding: 1rem;
-  margin-top: 1rem;
+  width: 800px;
+  margin: 1rem auto;
+  background-color: var(--color--card);
+
+  .saved-post-content {
+    padding: 2rem;
+  }
 
   h4{
     color: var(--color--text--subreddit-suggestion);
@@ -11,11 +16,13 @@
   .button-group {
     margin: .5rem 0 ;
     display: flex;
-    justify-content: flex-start;
-
-    button {
-      margin: 0 1rem 0 0;
-    }
+    justify-content: space-between;
+    
   }
 
+  @media (max-width: 850px) {
+    .create-post {
+      width: 95%;
+    }
+  }
 }
