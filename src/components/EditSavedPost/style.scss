@@ -4,4 +4,14 @@
     justify-content: space-between;
   
   }
+
+  input {
+    background-color: var(--color--background--textarea);
+    color: var(--color--text);
+  }
+
+  textarea {
+    background-color: var(--color--background--textarea);
+    color: var(--color--text);
+  }
 }
