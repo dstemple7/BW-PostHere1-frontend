@@ -22,6 +22,9 @@ const Header = (props: any) => {
         )}
         {loggedIn && (
           <div className='header-links'>
+            <Link to='/dashboard' className='link'>
+              Dashboard
+            </Link>
             <Link to='/settings' className='link'>
               Settings
             </Link>
