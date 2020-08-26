@@ -15,6 +15,7 @@
   --color--reddit-red:#ff4500;
   --color--reddit-red-hover:#ff6a33;
   --color--reddit-gray: #dae0e6;
+  --color--reddit-white: white;
 
 }
 
@@ -22,13 +23,13 @@
 @media (prefers-color-scheme: light), (prefers-color-scheme: no-preference) {
   :root {
     --color--text: hsl(240, 10%, 10%);
-    --color--background: white;
-
+    --color--background: var(--color--reddit-gray);
+    --color--card: var(--color--reddit-white);
     --color--text--link-unvisited: hsl(180, 100%, 25%);
     --color--text--link-visited: hsl(270, 100%, 25%);
 
     --color--text--subreddit-suggestion: var(--color--reddit-blue);
-  
+    
   }
 }
 

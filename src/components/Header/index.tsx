@@ -28,7 +28,7 @@ const Header = (props: any) => {
             <Link to='/settings' className='link'>
               Settings
             </Link>
-            <Link to='/logout' className='link'>
+            <Link to='/' className='link'>
               Log Out
             </Link>
           </div>
