@@ -1,14 +1,18 @@
-import axios, { AxiosResponse } from 'axios'
+import axiosWithAuth, { AxiosResponse } from '../api/axiosWithAuth'
 
 import LoginCredentials from '../types/login'
-import { AppThunk, SignupResponse, SignupErrorResponse } from '../types'
+import {
+  AppThunk,
+  SignupResponse,
+  SignupErrorResponse,
+} from '../types'
 
-import { createLoginErrorAction } from '.'
+import { createLoginErrorAction } from './login'
 
-export const SIGNUP_ACTION = 'SIGNUP_ACTION'
+export const SIGNUP_SUCCESS_ACTION = 'SIGNUP_SUCCESS_ACTION'
 
-export interface SignupAction {
-  type: typeof SIGNUP_ACTION
+export interface SignupSuccessAction {
+  type: typeof SIGNUP_SUCCESS_ACTION
   payload: string // the access token
 }
 
@@ -16,8 +20,10 @@ export interface SignupAction {
  *
  * @param payload The access token.
  */
-export const createSignupAction = (payload: string): SignupAction => ({
-  type: SIGNUP_ACTION,
+export const createSignupSuccessAction = (
+  payload: string
+): SignupSuccessAction => ({
+  type: SIGNUP_SUCCESS_ACTION,
   payload,
 })
 
@@ -43,19 +49,22 @@ export const createSignupErrorAction = (
 // Thunks
 //
 
-
 export const signUp = (credentials: LoginCredentials): AppThunk<void> => async (
   dispatch
 ) => {
   try {
-    const resp: AxiosResponse<SignupResponse> = await axios.put(
-      'http://dstemple7-posthere.herokuapp.com/createnewuser',
+    const resp: AxiosResponse<SignupResponse> = await axiosWithAuth().put(
+      '/createnewuser',
       credentials
     )
 
+    console.log(resp)
+
     if ('access_token' in resp.data) {
+      // definitely a success response
       localStorage.setItem('token', resp.data.access_token)
-      dispatch(createSignupAction(resp.data.access_token))
+      dispatch(createSignupSuccessAction(resp.data.access_token))
+      
     }
 
     // TODO: handle all the other cases that could crop up that aren't 4xx or 5xx errors

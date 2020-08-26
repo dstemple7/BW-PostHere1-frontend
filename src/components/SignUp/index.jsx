@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react'
+import { connect } from 'react-redux';
+
 import formSchema from './formSchema'
 import * as yup from 'yup'
 
@@ -10,17 +12,17 @@ import './style.scss'
 
 const initialSignUpValues = {
   username: '',
-  password1: '',
+  password: '',
   confirmPassword: '',
 }
 
 const initialErrorValues = {
   username: '',
-  password1: '',
+  password: '',
   confirmPassword: '',
 }
 
-export default function SignUp() {
+function SignUp() {
   const [signUpValues, setSignUpValues] = useState(initialSignUpValues)
   const [errors, setErrors] = useState(initialErrorValues)
   const [disabled, setDisabled] = useState(true)
@@ -102,3 +104,9 @@ export default function SignUp() {
     </>
   )
 }
+
+const mapStateToProps = (state) => state
+
+const mapDispatchToProps = {}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp)

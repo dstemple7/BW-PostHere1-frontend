@@ -1,4 +1,4 @@
-import { SignupAction } from './signup'
+import { SignupSuccessAction } from './signup'
 import { LoginErrorAction, LoginSuccessAction } from './login'
 import { GetRecommendationsAction } from './recs'
 
@@ -7,7 +7,7 @@ export * from './login'
 export * from './recs'
 
 export type Action =
-  | SignupAction
+  | SignupSuccessAction
   | LoginSuccessAction
   | GetRecommendationsAction
   | LoginErrorAction

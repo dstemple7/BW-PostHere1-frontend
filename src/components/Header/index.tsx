@@ -4,7 +4,7 @@ import './style.scss'
 
 const Header = (props: any) => {
   
-  const loggedIn = true
+  const loggedIn = !!localStorage.getItem('token')
   
   return (
     <div className='header'>
