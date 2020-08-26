@@ -27,7 +27,7 @@ const CreatePost = (props) => {
       recs: [],
     }
 
-    getRecommendations(post)
+    props.getRecommendations(post)
   }
 
   return (
