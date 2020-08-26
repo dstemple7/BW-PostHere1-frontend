@@ -1,8 +1,8 @@
 import TextPost from './post'
 
 export interface ApplicationState {
-  username: string
-  password: string
+  signupErrorMessage: string
+  loginErrorMessage: string
 
   isLoadingFromDS: boolean
   isLoadingFromBackend: boolean
@@ -15,8 +15,8 @@ export interface ApplicationState {
 }
 
 export const initialApplicationState: ApplicationState = {
-  username: '',
-  password: '',
+  signupErrorMessage: '',
+  loginErrorMessage: '',
 
   isLoadingFromDS: false,
   isLoadingFromBackend: false,
