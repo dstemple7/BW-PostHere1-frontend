@@ -5,7 +5,7 @@ import { ApplicationState } from '../../types'
 import { getRecommendations } from '../../actions'
 
 import './style.scss'
-import TextPost from '../../types/post'
+import TextPost, { SubredditSuggestion } from '../../types/post'
 import intersperse from '../../util/intersperse'
 
 const EditSavedPost = (props: Props) => {
@@ -14,7 +14,7 @@ const EditSavedPost = (props: Props) => {
   const [title, setTitle] = useState(props.content.title)
   const [body, setBody] = useState(props.content.body)
   const [elementSuggestions, setElementSuggestions] = useState(
-    props.content.recs
+    props.content.recs as SubredditSuggestion[]
   )
   const [elementSuggestionsAsLinks, setElementSuggestionsAsLinks] = useState(
     [] as JSX.Element[]
@@ -97,7 +97,7 @@ type PropsFromRedux = ConnectedProps<typeof connector>
 
 type Props = PropsFromRedux & {
   content: TextPost
-  setIsEditing: (anything:boolean) =>void
+  setIsEditing: (anything: boolean) => void
   handleDeleteSavedPost: (e: React.MouseEvent) => void
 } // totally local props
 
