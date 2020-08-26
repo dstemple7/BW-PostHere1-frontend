@@ -5,7 +5,6 @@ import { AppThunk, LoginSuccessResponse, LoginErrorResponse } from '../types'
 
 import history from '../util/history'
 
-
 export const LOGIN_SUCCESS_ACTION = 'LOGIN_SUCCESS_ACTION'
 
 export interface LoginSuccessAction {
@@ -26,12 +25,10 @@ export const LOGIN_ERROR_ACTION = 'LOGIN_ERROR_ACTION'
 
 export interface LoginErrorAction {
   type: typeof LOGIN_ERROR_ACTION
-  payload: any // TODO: flesh out
+  payload: string
 }
 
-export const createLoginErrorAction = (
-  payload: LoginErrorResponse
-): LoginErrorAction => ({
+export const createLoginErrorAction = (payload: string): LoginErrorAction => ({
   type: LOGIN_ERROR_ACTION,
   payload,
 })
@@ -66,14 +63,21 @@ export const logIn = (credentials: LoginCredentials): AppThunk<void> => async (
         resp
       )
     }
-
-    // TODO: handle all the other cases that could crop up that aren't 4xx or 5xx errors
   } catch (e) {
     console.error(e.response)
-    if (e.response?.data?.status === 'Unauthorized') {
+    if (e.response?.data?.error_description === 'Bad credentials') {
+      dispatch(
+        createLoginErrorAction('Incorrect username/password combination')
+      )
+    } else if (e.response?.data?.status === 'Unauthorized') {
+      console.warn('“Unauthorized” response', e.response)
+      dispatch(createLoginErrorAction('Unauthorized. Somehow.'))
+    } else {
+      console.error(
+        'Could not figure out a duck type of login error',
+        e.response
+      )
       dispatch(createLoginErrorAction(e.response.toString()))
     }
-
-    dispatch(createLoginErrorAction(e.response.toString()))
   }
 }

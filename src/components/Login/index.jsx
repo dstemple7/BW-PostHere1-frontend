@@ -59,8 +59,6 @@ function Login(props) {
       password: loginValues.password.trim(),
     }
 
-
-
     console.log(loginSubmit)
     props.logIn(loginSubmit)
   }
@@ -93,7 +91,13 @@ function Login(props) {
             type='submit'
             value='login'
             disabled={disabled}
-          />
+          />          
+          {props.loginErrorMessage.length === 0 ? (
+            ''
+          ) : (
+            <p className='error-message'>{props.loginErrorMessage}</p>
+          )}
+
         </form>
       </div>
     </>
