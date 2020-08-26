@@ -41,7 +41,7 @@ const CreatePost = ({ getRecommendations, inProgressPost }: Props) => {
         <h2>Create a post</h2>
         <form className='create-post-form' onSubmit={onSubmit}>
           <label>
-            Post Title
+            Title
             <br />
             <input
               type='text'
@@ -51,7 +51,7 @@ const CreatePost = ({ getRecommendations, inProgressPost }: Props) => {
             />
           </label>
           <label>
-            Post
+            Content
             <br />
             <textarea
               className='content-input'

@@ -63,12 +63,14 @@ code {
 }
 
 button {
-  padding: 0.5rem;
+  padding: 0.8rem;
   background-color: var(--color--reddit-blue);
   border: none;
   border-radius: 0.2rem;
   color: white;
   font-weight: bold;
+  font-size: 1rem;
+  max-width: 300px;
 
   &:focus {
     outline: none;
@@ -91,15 +93,16 @@ form {
     padding: 1rem;
     border-radius: 0.2rem;
     border: 1px solid;
-    width: 90%;
+    width: 95%;
   }
 
   textarea {
+    height: 250px;
     margin: 0.7rem auto;
     padding: 1rem;
     border:1px solid;
     border-radius: 0.2rem;
-    width: 250px;
+    width: 95%;
   }
 }
 
