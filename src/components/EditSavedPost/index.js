@@ -15,11 +15,11 @@ const EditSavedPost = (props) => {
   const [elementSuggestionsAsLinks, setElementSuggestionsAsLinks] = useState([])
 
   useEffect(() => {
-    const suggestions = inProgressPost.recs.map((r) => '/r/' + r.subreddit)
+    const suggestions = props.inProgressPost.recs.map((r) => '/r/' + r.subreddit)
     setElementSuggestionsAsLinks(
       suggestions.map((s) => <a href={`https://reddit.com${s}`}>{s}</a>)
     )
-  }, [inProgressPost])
+  }, [props.inProgressPost, props.inProgressPost.recs])
 
   function onSubmit(e) {
     e.preventDefault()
@@ -82,4 +82,4 @@ const EditSavedPost = (props) => {
 const mapStateToProps = (state) => state
 
 
-export default connect(mapStateToProps, { getRecommendations, inProgressPost })(EditSavedPost)
+export default connect(mapStateToProps, { getRecommendations })(EditSavedPost)

@@ -12,11 +12,11 @@ const CreatePost = (props) => {
   const [elementSuggestions, setElementSuggestions] = useState([])
 
   useEffect(() => {
-    const suggestions = inProgressPost.recs.map((r) => '/r/' + r.subreddit)
+    const suggestions = props.inProgressPost.recs.map((r) => '/r/' + r.subreddit)
     setElementSuggestions(
       suggestions.map((s) => <a href={`https://reddit.com${s}`}>{s}</a>)
     )
-  }, [inProgressPost])
+  }, [props.inProgressPost])
 
   function onSubmit(e) {
     e.preventDefault()
