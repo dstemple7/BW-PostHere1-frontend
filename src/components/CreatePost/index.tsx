@@ -61,20 +61,15 @@ const CreatePost = ({ getRecommendations, inProgressPost }: Props) => {
             />
           </label>
           <div className='button-group'>
-          <button type='submit'>Get subreddit suggestions</button>
+            <button type='submit'>Get subreddit suggestions</button>
           </div>
           <div className='suggestions'>
-              <p>
-                Subreddit Suggestions: 
-              </p>
-              <p>
-              {intersperse(elementSuggestions, ' · ')}
-              </p>
-            </div>
+            <p>Subreddit Suggestions:</p>
+            <p>{intersperse(elementSuggestions, ' · ')}</p>
+          </div>
           <div className='button-group'>
             <button>Save Post</button>
           </div>
-          
         </form>
       </section>
     </>

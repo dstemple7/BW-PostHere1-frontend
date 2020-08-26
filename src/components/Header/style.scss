@@ -5,21 +5,24 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-
+  
   h1 {
     padding: 0 2rem;
   }
-
+  
   .link {
     margin: 1rem;
     padding: .5rem;
     text-decoration: none;
     border-radius: .2rem;
+
+    &:hover{
+      background-color: white;
+      color: var(--color--reddit-red);
+    }
   }
   
-  .link:hover{
-    background-color: white;
-    color: var(--color--reddit-red);
-  }
+  
+
 }
 
