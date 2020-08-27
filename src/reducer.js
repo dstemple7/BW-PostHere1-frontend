@@ -64,7 +64,7 @@ export default function reducer(state = initialApplicationState, action) {
       return {
         ...state,
         savedSuccessMessage: 'Post created successfully!',
-        savedPosts: [action.payload, ...state.savedPosts],
+        savedPosts: action.payload,
       }
     case UPDATE_POST:
     // fallthrough

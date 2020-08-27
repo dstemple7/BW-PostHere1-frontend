@@ -11,16 +11,21 @@ export const FILTER_POSTS = 'FILTER_POSTS'
 export const CLEAR_POST_SAVED_SUCCESS_MESSAGE =
   'CLEAR_POST_SAVED_SUCCESS_MESSAGE'
 
+function fixUpPosts(resp) {
+  const posts = resp.data.posts.map((o) => o.post)
+  for (const post of posts) {
+    if (post.subreddit === null) post.subreddit = []
+  }
+  return posts
+}
+
 export const fetchSavedPosts = () => (dispatch) => {
   dispatch({ type: FETCHING_SAVED_POSTS })
   axiosWithAuth()
     .get('/home/getuserinfo')
     .then((res) => {
       console.log('fetch post ->', res.data)
-      const posts = res.data.posts.map((o) => o.post)
-      for (const post of posts) {
-        if (post.subreddit === null) post.subreddit = []
-      }
+      const posts = fixUpPosts(res)
 
       dispatch({ type: FETCH_SAVED_POSTS_SUCCESS, payload: posts })
     })
@@ -32,7 +37,14 @@ export const saveNewPost = (newRedditPost) => (dispatch) => {
     .post('/posts/post', newRedditPost)
     .then((res) => {
       console.log('create post ->', res)
-      dispatch({ type: SAVE_NEW_POST, payload: newRedditPost })
+
+      axiosWithAuth().get('/home/getuserinfo').then(resp => {
+        console.log('all posts after saving new post')
+        const posts = fixUpPosts(resp)
+        dispatch({ type: SAVE_NEW_POST, payload: posts })
+  
+      })
+
     })
     .catch((err) => console.log(err.response))
 }
