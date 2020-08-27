@@ -32,7 +32,12 @@ const CreatePost = (props) => {
 
   const handleSavePost = e => {
     e.preventDefault()
-    saveNewPost(props.inProgressPost)
+
+    const newPost = {
+      title: title,
+      post: body
+    }
+    props.saveNewPost(newPost)
   }
 
   return (
