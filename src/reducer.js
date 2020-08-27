@@ -9,7 +9,8 @@ import {
   UPDATE_POST,
   DELETE_POST,
   FILTER_POSTS,
-  CLEAR_REDIRECT
+  CLEAR_REDIRECT,
+  CLEAR_POST_SAVED_SUCCESS_MESSAGE,
 } from './actions'
 
 export const initialApplicationState = {
@@ -26,6 +27,8 @@ export const initialApplicationState = {
   shouldRedirectTo: '',
 
   savedPosts: [],
+
+  savedSuccessMessage: '',
 }
 
 export default function reducer(state = initialApplicationState, action) {
@@ -38,24 +41,39 @@ export default function reducer(state = initialApplicationState, action) {
       return { ...state, shouldRedirectTo: '/dashboard' }
     case LOGIN_ERROR_ACTION:
       return { ...state, loginErrorMessage: action.payload }
-    case FETCHING_SAVED_POSTS: 
-      return {...state, isLoadingFromBackend: true}
+    case FETCHING_SAVED_POSTS:
+      return { ...state, isLoadingFromBackend: true }
     case FETCH_SAVED_POSTS_SUCCESS:
-      return {...state, savedPosts:action.payload}
+      return { ...state, savedPosts: action.payload }
     case FILTER_POSTS:
-      return {...state, savedPosts:action.payload}
+      return { ...state, savedPosts: action.payload }
     case DELETE_POST:
-      return {...state, savedPosts:state.savedPosts.filter((item) => item.postid !== action.payload.postid)}
+      return {
+        ...state,
+        savedPosts: state.savedPosts.filter(
+          (item) => item.postid !== action.payload.postid
+        ),
+      }
     case SAVE_NEW_POST:
-      return {...state, savedPosts: [...state.savedPosts, action.payload]}
+
+      return { ...state, 
+        savedSuccessMessage: 'Post updated successfully!',
+        savedPosts: [action.payload, ...state.savedPosts] }
     case UPDATE_POST:
-      return {...state, savedPosts: state.savedPosts.map(p  => {
-        if (Number(p.postid) === Number(action.payload.postid)) {
-          return action.payload
-        } else {
-          return p
-        }
-      })} 
+      debugger;
+      return {
+        ...state,
+        savedSuccessMessage: 'Post updated successfully!',
+        savedPosts: state.savedPosts.map((p) => {
+          if (Number(p.postid) === Number(action.payload.postid)) {
+            return action.payload
+          } else {
+            return p
+          }
+        }),
+      }
+    case CLEAR_POST_SAVED_SUCCESS_MESSAGE:
+      return { ...state, savedSuccessMessage: '' }
     case CLEAR_REDIRECT:
       return { ...state, shouldRedirectTo: '' }
     default:

@@ -6,6 +6,7 @@ export const SAVE_NEW_POST = 'SAVE_POST'
 export const UPDATE_POST = 'UPDATE_POST'
 export const DELETE_POST = 'DELETE_POST'
 export const FILTER_POSTS = 'FILTER_POSTS'
+export const CLEAR_POST_SAVED_SUCCESS_MESSAGE = 'CLEAR_POST_SAVED_SUCCESS_MESSAGE'
 
 export const fetchSavedPosts = () => dispatch => {
   dispatch({ type: FETCHING_SAVED_POSTS })
@@ -55,4 +56,8 @@ export const deleteSavedPost = (deletedRedditPost) => dispatch => {
 
 export const setFilteredPosts = (filteredPosts) => dispatch => {
   dispatch({type: FILTER_POSTS, payload: filteredPosts})
+}
+
+export const clearPostSavedSuccessMessage = () => dispatch => {
+  dispatch({type: CLEAR_POST_SAVED_SUCCESS_MESSAGE})
 }

@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 
-import { getRecommendations, saveNewPost } from '../../actions'
+import { getRecommendations, saveNewPost, clearPostSavedSuccessMessage } from '../../actions'
 
 import './style.scss'
 import intersperse from '../../util/intersperse'
 
 const CreatePost = (props) => {
+  const { savedSuccessMessage } = props
   const [title, setTitle] = useState('')
   const [body, setBody] = useState('')
   const [elementSuggestions, setElementSuggestions] = useState([])
@@ -30,6 +31,15 @@ const CreatePost = (props) => {
     props.getRecommendations(post)
   }
 
+  useEffect(() => {
+    console.log("In useEffect for savedSuccessMessage. It is", savedSuccessMessage)
+
+    setTimeout(()=> {
+      setTitle('')
+      setBody('')
+    }, 1000 * 3)
+  }, [savedSuccessMessage])
+
   const handleSavePost = e => {
     e.preventDefault()
 
@@ -48,6 +58,7 @@ const CreatePost = (props) => {
     <>
       <section className='create-post'>
         <h2>Create a post</h2>
+        {savedSuccessMessage ? <p>{savedSuccessMessage}</p> : ''}
         <form className='create-post-form' onSubmit={onSubmit}>
           <label>
             Title
@@ -87,4 +98,4 @@ const CreatePost = (props) => {
 
 const mapStateToProps = (state) => state 
 
-export default connect(mapStateToProps, {getRecommendations, saveNewPost })(CreatePost)
+export default connect(mapStateToProps, {getRecommendations, saveNewPost, clearPostSavedSuccessMessage })(CreatePost)
