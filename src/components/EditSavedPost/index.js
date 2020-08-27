@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 
-import { getRecommendations } from '../../actions'
+import { getRecommendations, updateSavedPost } from '../../actions'
 
 import './style.scss'
 import intersperse from '../../util/intersperse'
@@ -12,16 +12,6 @@ const EditSavedPost = (props) => {
 
   const [title, setTitle] = useState(post.title)
   const [body, setBody] = useState(post.post)
-  const [subRedditSuggestions, setSubRedditSuggestions] = useState('')
-
-  
-
-  // useEffect(() => {
-  //   const formattedSubRedditSuggestions = subRedditSuggestions
-  //   console.log(formattedSubRedditSuggestions)
-  //   console.log(post.subreddit)
-  //   setSubRedditSuggestions('')
-  // }, [post])
 
   function onSubmit(e) {
     e.preventDefault()
@@ -37,6 +27,12 @@ const EditSavedPost = (props) => {
 
   const handlePostUpdate = (e) => {
     e.preventDefault()
+    const updatedRedditPost = {
+      title: title,
+      body: body,
+    }
+    props.updateSavedPost(updatedRedditPost, props.post.postid)
+
     props.setIsEditing(false)
   }
 
@@ -84,4 +80,4 @@ const EditSavedPost = (props) => {
 const mapStateToProps = (state) => state
 
 
-export default connect(mapStateToProps, { getRecommendations })(EditSavedPost)
+export default connect(mapStateToProps, { getRecommendations, updateSavedPost })(EditSavedPost)

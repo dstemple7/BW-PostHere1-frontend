@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { deleteSavedPost } from '../../actions'
+import { getRecommendations, deleteSavedPost } from '../../actions'
 import { connect } from 'react-redux'
 
 import EditSavedPost from '../EditSavedPost'
@@ -24,7 +24,8 @@ const SavedPost = (props) => {
   const handleEditSavedPost = (e) => {
     e.preventDefault()
     console.log('editing')
-    setIsEditing(!isEditing)
+    setIsEditing(true)
+
   }
 
   return (
@@ -33,7 +34,7 @@ const SavedPost = (props) => {
         <div className='saved-post-content'>
           <h3>{post.title}</h3>
           <p>{post.post}</p>
-          <h4>r/{post.subreddit}</h4>
+          {/* <h4>r/{post.subreddit}</h4> */}
           <div className='button-group'>
             <button onClick={handleEditSavedPost}>Edit </button>
             <button className='warning' onClick={handleDeleteSavedPost}>
@@ -51,4 +52,4 @@ const SavedPost = (props) => {
   )
 }
 
-export default connect(null, {deleteSavedPost})(SavedPost)
+export default connect(null, {getRecommendations, deleteSavedPost})(SavedPost)

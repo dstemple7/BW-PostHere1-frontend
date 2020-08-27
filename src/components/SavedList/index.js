@@ -42,7 +42,7 @@ const SavedList = (props) => {
       </label>
 
       {props.savedPosts.map((post) => {
-        return <SavedPost post={post} />
+        return <SavedPost key={post.postid} post={post} />
       })}
     </div>
   )

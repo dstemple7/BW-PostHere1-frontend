@@ -47,7 +47,9 @@ export default function reducer(state = initialApplicationState, action) {
     case DELETE_POST:
       return {...state, savedPosts:state.savedPosts.filter((item) => item.postid !== action.payload.postid)}
     case SAVE_NEW_POST:
-      return {...state}
+      return {...state} //update when return data is useable
+    case UPDATE_POST:
+      return {...state} //update when return data is useable
     default:
       return state
   }
