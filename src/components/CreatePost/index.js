@@ -48,6 +48,7 @@ const CreatePost = (props) => {
     <>
       <section className='create-post'>
         <h2>Create a post</h2>
+        {savedSuccessMessage ? <p>{savedSuccessMessage}</p> : ''}
         <form className='create-post-form' onSubmit={onSubmit}>
           <label>
             Title
