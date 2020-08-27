@@ -7,10 +7,6 @@ export const createGetRecommendationsAction = (payload) => ({
   payload,
 })
 
-//////////
-// Thunks
-//
-
 export const getRecommendations = (post) => async (dispatch) => {
   try {
     const req = {

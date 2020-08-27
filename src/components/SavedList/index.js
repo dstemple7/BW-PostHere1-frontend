@@ -1,4 +1,8 @@
 import React, { useState, useEffect } from 'react'
+import { connect } from 'react-redux'
+
+import {getSavedPosts} from '../../actions'
+
 import './style.scss'
 import SavedPost from '../SavedPost'
 
@@ -24,6 +28,10 @@ const SavedList = (props) => {
   const onChange = (evt) => {
     setSearch(evt.target.value)
   }
+
+  useEffect(() => {
+    props.getSavedPosts()
+  }, [])
 
   useEffect(() => {
     const newContents = savedContent.filter(
@@ -57,4 +65,6 @@ const SavedList = (props) => {
   )
 }
 
-export default SavedList
+const mapStateToProps = (state) => state 
+
+export default connect(mapStateToProps, {getSavedPosts})(SavedList)

@@ -3,6 +3,9 @@ import {
   GET_RECOMMENDATION,
   LOGIN_SUCCESS_ACTION,
   LOGIN_ERROR_ACTION,
+  SAVE_POST,
+  DELETE_POST,
+  UPDATE_POST
 } from './actions'
 
 export const initialApplicationState = {
