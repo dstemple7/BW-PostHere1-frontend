@@ -29,9 +29,6 @@ const Header = (props) => {
             <Link to='/dashboard' className='link'>
               Dashboard
             </Link>
-            <Link to='/settings' className='link'>
-              Settings
-            </Link>
             <Link to='/' className='link' onClick={onLogout}>
               Log Out
             </Link>
