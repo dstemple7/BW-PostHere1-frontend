@@ -61,7 +61,6 @@ export default function reducer(state = initialApplicationState, action) {
         savedPosts: [action.payload, ...state.savedPosts],
       }
     case UPDATE_POST:
-      debugger
       return {
         ...state,
         savedPosts: state.savedPosts.map((p) => {
