@@ -20,16 +20,21 @@ const SavedList = (props) => {
   }, [])
 
   useEffect(() => {
+    console.log('saved posts', savedPosts)
     if (search === '') {
       setDisplayedPosts(savedPosts)
     } else {
-      console.log('saved posts', savedPosts)
+      const re = new RegExp(search, 'i')
       setDisplayedPosts(
         savedPosts.filter((post) => {
-          return post.title.includes(search) || post.post.includes(search)
+          // post.subreddit is a string containing JSON at this point
+          return (
+            post.title.match(re) ||
+            post.post.match(re) ||
+            post.subreddit.match(re)
+          )
         })
       )
-
     }
   }, [search, savedPosts])
 
