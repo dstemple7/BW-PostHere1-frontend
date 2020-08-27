@@ -3,6 +3,7 @@ import {
   GET_RECOMMENDATION,
   LOGIN_SUCCESS_ACTION,
   LOGIN_ERROR_ACTION,
+  CLEAR_REDIRECT,
 } from './actions'
 
 export const initialApplicationState = {
@@ -16,6 +17,8 @@ export const initialApplicationState = {
 
   searchText: '',
 
+  shouldRedirectTo: '',
+
   savedPosts: [],
 }
 
@@ -28,10 +31,11 @@ export default function reducer(state = initialApplicationState, action) {
       // …so do nothing
       return state
     case LOGIN_SUCCESS_ACTION:
-      // nothing to do here
-      return state
+      return { ...state, shouldRedirectTo: '/dashboard' }
     case LOGIN_ERROR_ACTION:
       return { ...state, loginErrorMessage: action.payload }
+    case CLEAR_REDIRECT:
+      return { ...state, shouldRedirectTo: '' }
     default:
       return state
   }
