@@ -33,12 +33,12 @@ export const saveNewPost = (newRedditPost) => dispatch => {
     .catch(err => console.log(err.response))
 }
 
-export const updateSavedPost = (updatedRedditPost, id) => dispatch => {
+export const updateSavedPost = (updatedRedditPost) => dispatch => {
   axiosWithAuth()
-    .put(`/posts/post/${id}`, updatedRedditPost)
+    .put(`/posts/post/${updatedRedditPost.postid}`, updatedRedditPost)
     .then(res => {
       console.log('edit post ->', res)
-      dispatch({type: UPDATE_POST , payload: {id, updatedRedditPost}})
+      dispatch({type: UPDATE_POST , payload: updatedRedditPost})
     })
     .catch(err => console.log(err))
 }

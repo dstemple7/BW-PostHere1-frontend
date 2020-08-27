@@ -19,7 +19,7 @@ export const initialApplicationState = {
   isLoadingFromDS: false,
   isLoadingFromBackend: false,
 
-  inProgressPost: { title: '', body: '', recs: [] },
+  inProgressPost: { title: '', body: '', recs: [], postid: -1 },
 
   searchText: '',
 
@@ -50,8 +50,8 @@ export default function reducer(state = initialApplicationState, action) {
       return {...state, savedPosts: [...state.savedPosts, action.payload]}
     case UPDATE_POST:
       return {...state, savedPosts: state.savedPosts.map(p  => {
-        if (Number(p.postid) === Number(action.payload.id)) {
-          return action.payload.updatedRedditPost
+        if (Number(p.postid) === Number(action.payload.postid)) {
+          return action.payload
         } else {
           return p
         }
