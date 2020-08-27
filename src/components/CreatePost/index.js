@@ -33,9 +33,13 @@ const CreatePost = (props) => {
   const handleSavePost = e => {
     e.preventDefault()
 
+    let recs = props.inProgressPost.recs
+    if (!recs) recs = []
+
     const newPost = {
       title: title,
-      post: body
+      post: body,
+      subreddit: JSON.stringify(recs)
     }
     props.saveNewPost(newPost)
   }
