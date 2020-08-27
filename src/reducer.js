@@ -27,9 +27,7 @@ export default function reducer(state = initialApplicationState, action) {
     case GET_RECOMMENDATION:
       return { ...state, inProgressPost: action.payload }
     case SIGNUP_SUCCESS_ACTION:
-      // token in localStorage, and all’s right with the world
-      // …so do nothing
-      return state
+      return { ...state, shouldRedirectTo: '/dashboard' }
     case LOGIN_SUCCESS_ACTION:
       return { ...state, shouldRedirectTo: '/dashboard' }
     case LOGIN_ERROR_ACTION:

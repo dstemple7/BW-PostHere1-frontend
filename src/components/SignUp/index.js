@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
+import { useHistory } from 'react-router-dom'
 import { connect } from 'react-redux'
 
-import { signUp } from '../../actions/signup'
+import { signUp, createClearRedirectAction } from '../../actions'
 
 import formSchema from './formSchema'
 import * as yup from 'yup'
@@ -25,6 +26,7 @@ const initialErrorValues = {
 }
 
 function SignUp(props) {
+  const history = useHistory()
   const [signUpValues, setSignUpValues] = useState(initialSignUpValues)
   const [errors, setErrors] = useState(initialErrorValues)
   const [disabled, setDisabled] = useState(true)
@@ -34,6 +36,14 @@ function SignUp(props) {
       setDisabled(!valid)
     })
   }, [signUpValues])
+
+  const { shouldRedirectTo, createClearRedirectAction } = props
+  useEffect(() => {
+    if (shouldRedirectTo !== '') {
+      history.push(shouldRedirectTo)
+      createClearRedirectAction()
+    }
+  }, [history, shouldRedirectTo, createClearRedirectAction])
 
   const onChange = (evt) => {
     const name = evt.target.name
@@ -110,6 +120,6 @@ function SignUp(props) {
 
 const mapStateToProps = (state) => state
 
-const mapDispatchToProps = { signUp }
+const mapDispatchToProps = { signUp, createClearRedirectAction }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignUp)
