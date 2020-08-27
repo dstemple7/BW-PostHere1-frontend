@@ -33,6 +33,8 @@
     --color--text--link-visited: hsl(270, 100%, 25%);
 
     --color--text--subreddit-suggestion: var(--color--reddit-blue);
+
+    --color--text--button--disabled: var(--color--dark-grey)
     
   }
 }
@@ -47,6 +49,8 @@
 
     // Actually the same color as in light mode. Unlike most text colors, this one works well enough against both a light and dark background, assuming you don’t need a particularly high contrast ratio.
     --color--text--subreddit-suggestion: var(--color--reddit-blue);
+
+    --color--text--button--disabled: initial;
   }
 }
 
@@ -85,6 +89,10 @@ button {
     background-color: var(--color--reddit-blue-hover);
   }
 
+}
+
+input[type=submit]:disabled {
+  color: var(--color--text--button--disabled);
 }
 
 form {
