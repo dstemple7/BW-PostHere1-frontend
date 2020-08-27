@@ -35,12 +35,13 @@ function Login(props) {
     })
   }, [loginValues])
 
+  const { createClearRedirectAction, shouldRedirectTo } = props
   useEffect(() => {
-    if (props.shouldRedirectTo !== '') {
-      history.push(props.shouldRedirectTo)
-      props.createClearRedirectAction()
+    if (shouldRedirectTo !== '') {
+      history.push(shouldRedirectTo)
+      createClearRedirectAction()
     }
-  }, [history, props.shouldRedirectTo])
+  }, [history, shouldRedirectTo, createClearRedirectAction])
 
   const onChange = (evt) => {
     const name = evt.target.name
