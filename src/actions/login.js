@@ -62,7 +62,7 @@ export const logIn = (credentials) => async (dispatch) => {
         'Could not figure out a duck type of login error',
         e.response
       )
-      dispatch(createLoginErrorAction(e.response.toString()))
+      dispatch(createLoginErrorAction(e?.response?.toString() ?? 'mystery error'))
     }
   }
 }
