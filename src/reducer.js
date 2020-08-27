@@ -55,15 +55,15 @@ export default function reducer(state = initialApplicationState, action) {
         ),
       }
     case SAVE_NEW_POST:
-
-      return { ...state, 
-        savedSuccessMessage: 'Post updated successfully!',
-        savedPosts: [action.payload, ...state.savedPosts] }
-    case UPDATE_POST:
-      debugger;
       return {
         ...state,
-        savedSuccessMessage: 'Post updated successfully!',
+        savedSuccessMessage: 'Post created successfully!',
+        savedPosts: [action.payload, ...state.savedPosts],
+      }
+    case UPDATE_POST:
+      debugger
+      return {
+        ...state,
         savedPosts: state.savedPosts.map((p) => {
           if (Number(p.postid) === Number(action.payload.postid)) {
             return action.payload
