@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
+import { useHistory } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 import * as yup from 'yup'
 import formSchema from './formSchema'
 
-import { logIn } from '../../actions/login'
+import { logIn, createClearRedirectAction } from '../../actions'
 
 import './style.scss'
 
@@ -23,6 +24,7 @@ const initialErrorValues = {
 }
 
 function Login(props) {
+  const history = useHistory()
   const [loginValues, setLoginValues] = useState(initialLogInValues)
   const [errors, setErrors] = useState(initialErrorValues)
   const [disabled, setDisabled] = useState(true)
@@ -32,6 +34,13 @@ function Login(props) {
       setDisabled(!valid)
     })
   }, [loginValues])
+
+  useEffect(() => {
+    if (props.shouldRedirectTo !== '') {
+      history.push(props.shouldRedirectTo)
+      props.createClearRedirectAction()
+    }
+  }, [history, props.shouldRedirectTo])
 
   const onChange = (evt) => {
     const name = evt.target.name
@@ -91,13 +100,12 @@ function Login(props) {
             type='submit'
             value='login'
             disabled={disabled}
-          />          
+          />
           {props.loginErrorMessage.length === 0 ? (
             ''
           ) : (
             <p className='error-message'>{props.loginErrorMessage}</p>
           )}
-
         </form>
       </div>
     </>
@@ -106,6 +114,6 @@ function Login(props) {
 
 const mapStateToProps = (state) => state
 
-const mapDispatchToProps = { logIn }
+const mapDispatchToProps = { logIn, createClearRedirectAction }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login)
