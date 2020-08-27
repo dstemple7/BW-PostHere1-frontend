@@ -1,11 +1,15 @@
 .trending-post {
+  box-sizing: border-box;
   border: 1px solid;
   border-radius: 0.2rem;
   width: 800px;
   margin: 1rem auto;
   background-color: var(--color--card);
+  padding: 0 2%;
 
-  h4{
-    color: var(--color--text--subreddit-suggestion);
+  a {
+    h4{
+      color: var(--color--text--subreddit-suggestion);
+    }
   }
 }
