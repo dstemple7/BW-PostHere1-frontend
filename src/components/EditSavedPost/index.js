@@ -52,6 +52,7 @@ const EditSavedPost = (props) => {
 
   const handlePostUpdate = (e) => {
     e.preventDefault()
+    console.log('postid ->', props.post.postid)
     const updatedRedditPost = {
       title: title,
       post: body,

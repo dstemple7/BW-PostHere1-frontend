@@ -38,6 +38,7 @@ export const saveNewPost = (newRedditPost) => (dispatch) => {
 }
 
 export const updateSavedPost = (updatedRedditPost) => (dispatch) => {
+  console.log(updatedRedditPost.postid)
   axiosWithAuth()
     .put(`/posts/post/${updatedRedditPost.postid}`, updatedRedditPost)
     .then((res) => {
