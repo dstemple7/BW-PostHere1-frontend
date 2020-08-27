@@ -6,8 +6,6 @@ import {fetchSavedPosts} from '../../actions'
 import './style.scss'
 import SavedPost from '../SavedPost'
 
-
-
 const SavedList = (props) => {
   const [search, setSearch] = useState('')
 

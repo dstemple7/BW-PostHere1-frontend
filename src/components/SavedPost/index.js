@@ -1,14 +1,24 @@
 import React, { useState } from 'react'
-import './style.scss'
+import { deleteSavedPost } from '../../actions'
+import { connect } from 'react-redux'
+
 import EditSavedPost from '../EditSavedPost'
 
+import './style.scss'
+
 const SavedPost = (props) => {
-  const [isEditing, setIsEditing] = useState(false)
+  
   const { post } = props
+  
+  const [isEditing, setIsEditing] = useState(false)
 
   const handleDeleteSavedPost = (e) => {
     e.preventDefault()
     console.log('delete')
+    console.log(post)
+    props.deleteSavedPost(post)
+
+
   }
 
   const handleEditSavedPost = (e) => {
@@ -41,4 +51,4 @@ const SavedPost = (props) => {
   )
 }
 
-export default SavedPost
+export default connect(null, {deleteSavedPost})(SavedPost)

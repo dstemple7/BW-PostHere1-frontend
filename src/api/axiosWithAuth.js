@@ -3,7 +3,6 @@ export * from 'axios'
 
 export default function axiosWithAuth() {
   const token = localStorage.getItem('token')
-  console.log(token)
   return axios.create({
     headers: {
       Authorization: `Bearer ${token}`,

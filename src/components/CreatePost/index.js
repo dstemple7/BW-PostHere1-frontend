@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 
-import { getRecommendations } from '../../actions'
+import { getRecommendations, saveNewPost } from '../../actions'
 
 import './style.scss'
 import intersperse from '../../util/intersperse'
@@ -28,6 +28,11 @@ const CreatePost = (props) => {
     }
 
     props.getRecommendations(post)
+  }
+
+  const handleSavePost = e => {
+    e.preventDefault()
+    saveNewPost(props.inProgressPost)
   }
 
   return (
@@ -63,7 +68,7 @@ const CreatePost = (props) => {
             <p>{intersperse(elementSuggestions, ' · ')}</p>
           </div>
           <div className='button-group'>
-            <button>Save Post</button>
+            <button onClick={handleSavePost}>Save Post</button>
           </div>
         </form>
       </section>
@@ -73,4 +78,4 @@ const CreatePost = (props) => {
 
 const mapStateToProps = (state) => state 
 
-export default connect(mapStateToProps, {getRecommendations})(CreatePost)
+export default connect(mapStateToProps, {getRecommendations, saveNewPost })(CreatePost)

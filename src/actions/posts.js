@@ -40,12 +40,12 @@ export const updateSavedPost = (updatedRedditPost) => dispatch => {
 
 export const deleteSavedPost = (deletedRedditPost) => dispatch => {
   axiosWithAuth()
-    .delete(`/posts/post/${deletedRedditPost.id}`)
+    .delete(`/posts/post/${deletedRedditPost.postid}`)
     .then(res => {
       console.log('delete post ->', res)
-      dispatch({type: DELETE_POST, payload: res.data })
+      dispatch({type: DELETE_POST, payload: deletedRedditPost})
     })
-    .catch(err => console.log(err))
+    .catch(err => console.log(err.response))
 }
 
 export const setFilteredPosts = (filteredPosts) => dispatch => {

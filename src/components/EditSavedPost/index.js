@@ -7,18 +7,21 @@ import './style.scss'
 import intersperse from '../../util/intersperse'
 
 const EditSavedPost = (props) => {
+
   const { post } = props
 
   const [title, setTitle] = useState(post.title)
   const [body, setBody] = useState(post.post)
-  const [elementSuggestions, setElementSuggestions] = useState(post.subreddit)
+  const [subRedditSuggestions, setSubRedditSuggestions] = useState('')
 
-  useEffect(() => {
-    const suggestions = props.inProgressPost.recs.map((r) => '/r/' + r.subreddit)
-    setElementSuggestions(
-      suggestions.map((s) => <a href={`https://reddit.com${s}`}>{s}</a>)
-    )
-  }, [props.inProgressPost, props.inProgressPost.recs])
+  
+
+  // useEffect(() => {
+  //   const formattedSubRedditSuggestions = subRedditSuggestions
+  //   console.log(formattedSubRedditSuggestions)
+  //   console.log(post.subreddit)
+  //   setSubRedditSuggestions('')
+  // }, [post])
 
   function onSubmit(e) {
     e.preventDefault()
@@ -65,7 +68,7 @@ const EditSavedPost = (props) => {
         </div>
         <div className='suggestions'>
           <p>Subreddit Suggestions:</p>
-          <p>{intersperse(elementSuggestions, ' · ')}</p>
+          {/* <p>{subRedditSuggestions === "" ? "" : intersperse(subRedditSuggestions, ' · ')}</p> */}
         </div>
         <div className='button-group'>
           <button onClick={handlePostUpdate}>Done</button>
