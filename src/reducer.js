@@ -3,7 +3,13 @@ import {
   GET_RECOMMENDATION,
   LOGIN_SUCCESS_ACTION,
   LOGIN_ERROR_ACTION,
-  CLEAR_REDIRECT,
+  FETCHING_SAVED_POSTS,
+  FETCH_SAVED_POSTS_SUCCESS,
+  SAVE_NEW_POST,
+  UPDATE_POST,
+  DELETE_POST,
+  FILTER_POSTS,
+  CLEAR_REDIRECT
 } from './actions'
 
 export const initialApplicationState = {
@@ -32,6 +38,18 @@ export default function reducer(state = initialApplicationState, action) {
       return { ...state, shouldRedirectTo: '/dashboard' }
     case LOGIN_ERROR_ACTION:
       return { ...state, loginErrorMessage: action.payload }
+    case FETCHING_SAVED_POSTS: 
+      return {...state, isLoadingFromBackend: true}
+    case FETCH_SAVED_POSTS_SUCCESS:
+      return {...state, savedPosts:action.payload}
+    case FILTER_POSTS:
+      return {...state, savedPosts:action.payload}
+    case DELETE_POST:
+      return {...state, savedPosts:state.savedPosts.filter((item) => item.postid !== action.payload.postid)}
+    case SAVE_NEW_POST:
+      return {...state} //update when return data is useable
+    case UPDATE_POST:
+      return {...state} //update when return data is useable
     case CLEAR_REDIRECT:
       return { ...state, shouldRedirectTo: '' }
     default:

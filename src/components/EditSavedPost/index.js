@@ -1,25 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 
-import { getRecommendations } from '../../actions'
+import { getRecommendations, updateSavedPost } from '../../actions'
 
 import './style.scss'
 import intersperse from '../../util/intersperse'
 
 const EditSavedPost = (props) => {
-  const { getRecommendations, inProgressPost } = props
 
-  const [title, setTitle] = useState(props.content.title)
-  const [body, setBody] = useState(props.content.body)
-  const [elementSuggestions, setElementSuggestions] = useState(props.content.recs)
-  const [elementSuggestionsAsLinks, setElementSuggestionsAsLinks] = useState([])
+  const { post } = props
 
-  useEffect(() => {
-    const suggestions = props.inProgressPost.recs.map((r) => '/r/' + r.subreddit)
-    setElementSuggestionsAsLinks(
-      suggestions.map((s) => <a href={`https://reddit.com${s}`}>{s}</a>)
-    )
-  }, [props.inProgressPost, props.inProgressPost.recs])
+  const [title, setTitle] = useState(post.title)
+  const [body, setBody] = useState(post.post)
 
   function onSubmit(e) {
     e.preventDefault()
@@ -35,6 +27,12 @@ const EditSavedPost = (props) => {
 
   const handlePostUpdate = (e) => {
     e.preventDefault()
+    const updatedRedditPost = {
+      title: title,
+      body: body,
+    }
+    props.updateSavedPost(updatedRedditPost, props.post.postid)
+
     props.setIsEditing(false)
   }
 
@@ -66,7 +64,7 @@ const EditSavedPost = (props) => {
         </div>
         <div className='suggestions'>
           <p>Subreddit Suggestions:</p>
-          <p>{intersperse(elementSuggestions, ' · ')}</p>
+          {/* <p>{subRedditSuggestions === "" ? "" : intersperse(subRedditSuggestions, ' · ')}</p> */}
         </div>
         <div className='button-group'>
           <button onClick={handlePostUpdate}>Done</button>
@@ -82,4 +80,4 @@ const EditSavedPost = (props) => {
 const mapStateToProps = (state) => state
 
 
-export default connect(mapStateToProps, { getRecommendations })(EditSavedPost)
+export default connect(mapStateToProps, { getRecommendations, updateSavedPost })(EditSavedPost)
