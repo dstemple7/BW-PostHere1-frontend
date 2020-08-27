@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 
-import {getSavedPosts} from '../../actions'
+import {fetchSavedPosts} from '../../actions'
 
 import './style.scss'
 import SavedPost from '../SavedPost'
@@ -30,7 +30,7 @@ const SavedList = (props) => {
   }
 
   useEffect(() => {
-    props.getSavedPosts()
+    props.fetchSavedPosts()
   }, [])
 
   useEffect(() => {
@@ -67,4 +67,4 @@ const SavedList = (props) => {
 
 const mapStateToProps = (state) => state 
 
-export default connect(mapStateToProps, {getSavedPosts})(SavedList)
+export default connect(mapStateToProps, {fetchSavedPosts})(SavedList)
