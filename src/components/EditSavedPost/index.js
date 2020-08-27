@@ -10,8 +10,19 @@ const EditSavedPost = (props) => {
 
   const { post } = props
 
+  console.log(post)
   const [title, setTitle] = useState(post.title)
   const [body, setBody] = useState(post.post)
+
+
+  useEffect(() => {
+    const suggestions = props.inProgressPost.recs.map(
+      (r) => '/r/' + r.subreddit
+    )
+    setElementSuggestions(
+      suggestions.map((s) => <a href={`https://reddit.com${s}`}>{s}</a>)
+    )
+  }, [props.inProgressPost])
 
   function onSubmit(e) {
     e.preventDefault()

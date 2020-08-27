@@ -8,6 +8,7 @@ export const createGetRecommendationsAction = (payload) => ({
 })
 
 export const getRecommendations = (post) => async (dispatch) => {
+
   try {
     const req = {
       title: post.title,
