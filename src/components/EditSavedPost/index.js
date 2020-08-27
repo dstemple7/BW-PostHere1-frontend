@@ -30,8 +30,10 @@ const EditSavedPost = (props) => {
     const updatedRedditPost = {
       title: title,
       post: body,
+      subreddit: props.post.subreddit,
+      postid: props.post.postid,
     }
-    props.updateSavedPost(updatedRedditPost, props.post.postid)
+    props.updateSavedPost(updatedRedditPost)
 
     props.setIsEditing(false)
   }

@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 
-import {fetchSavedPosts} from '../../actions'
+import { fetchSavedPosts } from '../../actions'
 
 import './style.scss'
 import SavedPost from '../SavedPost'
 
 const SavedList = (props) => {
+  const { savedPosts } = props
+  const [displayedPosts, setDisplayedPosts] = useState(savedPosts)
   const [search, setSearch] = useState('')
 
   const onChange = (evt) => {
@@ -18,13 +20,23 @@ const SavedList = (props) => {
   }, [])
 
   useEffect(() => {
-    const filteredPosts = props.savedPosts.filter(
-      (post) => {
-        post.title.includes(search) ||
-        post.post.includes(search) 
-      }
-    )
-  }, [search])
+    console.log('saved posts', savedPosts)
+    if (search === '') {
+      setDisplayedPosts(savedPosts)
+    } else {
+      const re = new RegExp(search, 'i')
+      setDisplayedPosts(
+        savedPosts.filter((post) => {
+          // post.subreddit is a string containing JSON at this point
+          return (
+            post.title.match(re) ||
+            post.post.match(re) ||
+            post.subreddit.match(re)
+          )
+        })
+      )
+    }
+  }, [search, savedPosts])
 
   return (
     <div className='saved-list'>
@@ -41,13 +53,13 @@ const SavedList = (props) => {
         />
       </label>
 
-      {props.savedPosts.map((post) => {
+      {displayedPosts.map((post) => {
         return <SavedPost key={post.postid} post={post} />
       })}
     </div>
   )
 }
 
-const mapStateToProps = (state) => state 
+const mapStateToProps = (state) => state
 
-export default connect(mapStateToProps, {fetchSavedPosts})(SavedList)
+export default connect(mapStateToProps, { fetchSavedPosts })(SavedList)

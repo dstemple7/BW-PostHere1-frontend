@@ -6,6 +6,7 @@ export const SAVE_NEW_POST = 'SAVE_POST'
 export const UPDATE_POST = 'UPDATE_POST'
 export const DELETE_POST = 'DELETE_POST'
 export const FILTER_POSTS = 'FILTER_POSTS'
+export const CLEAR_POST_SAVED_SUCCESS_MESSAGE = 'CLEAR_POST_SAVED_SUCCESS_MESSAGE'
 
 export const fetchSavedPosts = () => dispatch => {
   dispatch({ type: FETCHING_SAVED_POSTS })
@@ -33,12 +34,12 @@ export const saveNewPost = (newRedditPost) => dispatch => {
     .catch(err => console.log(err.response))
 }
 
-export const updateSavedPost = (updatedRedditPost, id) => dispatch => {
+export const updateSavedPost = (updatedRedditPost) => dispatch => {
   axiosWithAuth()
-    .put(`/posts/post/${id}`, updatedRedditPost)
+    .put(`/posts/post/${updatedRedditPost.postid}`, updatedRedditPost)
     .then(res => {
       console.log('edit post ->', res)
-      dispatch({type: UPDATE_POST , payload: {id, updatedRedditPost}})
+      dispatch({type: UPDATE_POST , payload: updatedRedditPost})
     })
     .catch(err => console.log(err))
 }
@@ -55,4 +56,8 @@ export const deleteSavedPost = (deletedRedditPost) => dispatch => {
 
 export const setFilteredPosts = (filteredPosts) => dispatch => {
   dispatch({type: FILTER_POSTS, payload: filteredPosts})
+}
+
+export const clearPostSavedSuccessMessage = () => dispatch => {
+  dispatch({type: CLEAR_POST_SAVED_SUCCESS_MESSAGE})
 }

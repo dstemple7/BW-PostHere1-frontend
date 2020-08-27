@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './style.scss';
 import axios from 'axios';
+import TrendingLink from './TrendingLink'
 
 export default function Trending(props) {
   const [ subreddits, setSubreddits ] = useState([])
@@ -22,7 +23,7 @@ export default function Trending(props) {
       <h1>Today's trending subreddits:</h1>
       { subreddits.map( sub => {
         return (
-        <a href={`https://www.reddit.com/r/${sub}`}><h4>{`r/${sub}`}</h4></a>
+          <TrendingLink sub={sub} />
         )
       })
       }

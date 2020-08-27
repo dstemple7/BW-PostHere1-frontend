@@ -38,7 +38,6 @@ const SavedPost = (props) => {
   ) {
     post.subreddit = '[]'
   }
-  console.log(post.subreddit)
 
   let subreddits = JSON.parse(post.subreddit)
   if (typeof subreddits !== typeof []) {
