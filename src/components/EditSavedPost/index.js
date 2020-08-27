@@ -29,7 +29,7 @@ const EditSavedPost = (props) => {
     e.preventDefault()
     const updatedRedditPost = {
       title: title,
-      body: body,
+      post: body,
     }
     props.updateSavedPost(updatedRedditPost, props.post.postid)
 

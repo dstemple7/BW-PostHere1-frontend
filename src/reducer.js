@@ -47,9 +47,15 @@ export default function reducer(state = initialApplicationState, action) {
     case DELETE_POST:
       return {...state, savedPosts:state.savedPosts.filter((item) => item.postid !== action.payload.postid)}
     case SAVE_NEW_POST:
-      return {...state} //update when return data is useable
+      return {...state, savedPosts: [...state.savedPosts, action.payload]}
     case UPDATE_POST:
-      return {...state} //update when return data is useable
+      return {...state, savedPosts: state.savedPosts.map(p  => {
+        if (Number(p.postid) === Number(action.payload.id)) {
+          return action.payload.updatedRedditPost
+        } else {
+          return p
+        }
+      })} 
     case CLEAR_REDIRECT:
       return { ...state, shouldRedirectTo: '' }
     default:

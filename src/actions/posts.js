@@ -10,10 +10,15 @@ export const FILTER_POSTS = 'FILTER_POSTS'
 export const fetchSavedPosts = () => dispatch => {
   dispatch({ type: FETCHING_SAVED_POSTS })
   axiosWithAuth()
-    .get('/posts/all') ///this needs to be changed to 'home/getuserinfo' once we fix data shape
+    .get('/home/getuserinfo')
     .then(res => {
       console.log('fetch post ->', res.data)
-      dispatch({ type: FETCH_SAVED_POSTS_SUCCESS, payload: res.data })
+      const posts = res.data.posts.map(o => o.post)
+      for (const post of posts) {
+        if (post.subreddit === null) post.subreddit = []
+      }
+      
+      dispatch({ type: FETCH_SAVED_POSTS_SUCCESS, payload: posts })
     })
     .catch(err => console.log('error',err.response))
 }
@@ -23,9 +28,9 @@ export const saveNewPost = (newRedditPost) => dispatch => {
     .post('/posts/post', newRedditPost)
     .then(res => {
       console.log('create post ->', res)
-      dispatch ({type: SAVE_NEW_POST, payload: res.data})
+      dispatch ({type: SAVE_NEW_POST, payload: newRedditPost})
     })
-    .catch(err => console.log(err))
+    .catch(err => console.log(err.response))
 }
 
 export const updateSavedPost = (updatedRedditPost, id) => dispatch => {
@@ -33,7 +38,7 @@ export const updateSavedPost = (updatedRedditPost, id) => dispatch => {
     .put(`/posts/post/${id}`, updatedRedditPost)
     .then(res => {
       console.log('edit post ->', res)
-      dispatch({type: UPDATE_POST , payload: res.data})
+      dispatch({type: UPDATE_POST , payload: {id, updatedRedditPost}})
     })
     .catch(err => console.log(err))
 }
