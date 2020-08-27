@@ -9,7 +9,6 @@ export default function Trending(props) {
   useEffect( () => {
     axios.get('https://www.reddit.com/api/trending_subreddits.json')
       .then( res => {
-        console.log(res.data)
         setSubreddits(res.data.subreddit_names)
         setLink(res.data.comment_url)
       })

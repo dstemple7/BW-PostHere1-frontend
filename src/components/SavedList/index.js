@@ -6,24 +6,10 @@ import {fetchSavedPosts} from '../../actions'
 import './style.scss'
 import SavedPost from '../SavedPost'
 
-const savedContent = [
-  {
-    title: 'Title Number 1 Goes Here',
-    body:
-      'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using , making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for  will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).',
-    recs: ['dolphins', 'watersports', 'random'],
-  },
-  {
-    title: 'Title of the next thing',
-    body:
-      'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using , making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for  will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).',
-    recs: ['running', 'biking', 'dogs'],
-  },
-]
+
 
 const SavedList = (props) => {
   const [search, setSearch] = useState('')
-  const [contents, setContents] = useState(savedContent)
 
   const onChange = (evt) => {
     setSearch(evt.target.value)
@@ -34,13 +20,12 @@ const SavedList = (props) => {
   }, [])
 
   useEffect(() => {
-    const newContents = savedContent.filter(
-      (post) =>
+    const filteredPosts = props.savedPosts.filter(
+      (post) => {
         post.title.includes(search) ||
-        post.body.includes(search) ||
-        post.recs.includes(search)
+        post.post.includes(search) 
+      }
     )
-    setContents(newContents)
   }, [search])
 
   return (
@@ -58,8 +43,8 @@ const SavedList = (props) => {
         />
       </label>
 
-      {contents.map((post) => {
-        return <SavedPost content={post} />
+      {props.savedPosts.map((post) => {
+        return <SavedPost post={post} />
       })}
     </div>
   )

@@ -7,16 +7,15 @@ import './style.scss'
 import intersperse from '../../util/intersperse'
 
 const EditSavedPost = (props) => {
-  const { getRecommendations, inProgressPost } = props
+  const { post } = props
 
-  const [title, setTitle] = useState(props.content.title)
-  const [body, setBody] = useState(props.content.body)
-  const [elementSuggestions, setElementSuggestions] = useState(props.content.recs)
-  const [elementSuggestionsAsLinks, setElementSuggestionsAsLinks] = useState([])
+  const [title, setTitle] = useState(post.title)
+  const [body, setBody] = useState(post.post)
+  const [elementSuggestions, setElementSuggestions] = useState(post.subreddit)
 
   useEffect(() => {
     const suggestions = props.inProgressPost.recs.map((r) => '/r/' + r.subreddit)
-    setElementSuggestionsAsLinks(
+    setElementSuggestions(
       suggestions.map((s) => <a href={`https://reddit.com${s}`}>{s}</a>)
     )
   }, [props.inProgressPost, props.inProgressPost.recs])

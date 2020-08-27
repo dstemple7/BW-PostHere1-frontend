@@ -4,7 +4,7 @@ import EditSavedPost from '../EditSavedPost'
 
 const SavedPost = (props) => {
   const [isEditing, setIsEditing] = useState(false)
-  const { content } = props
+  const { post } = props
 
   const handleDeleteSavedPost = (e) => {
     e.preventDefault()
@@ -21,9 +21,9 @@ const SavedPost = (props) => {
     <div className='saved-post'>
       {isEditing ? null : (
         <div className='saved-post-content'>
-          <h3>{content.title}</h3>
-          <p>{content.body}</p>
-          <h4>r/{content.recs}</h4>
+          <h3>{post.title}</h3>
+          <p>{post.post}</p>
+          <h4>r/{post.subreddit}</h4>
           <div className='button-group'>
             <button onClick={handleEditSavedPost}>Edit </button>
             <button className='warning' onClick={handleDeleteSavedPost}>
@@ -34,7 +34,7 @@ const SavedPost = (props) => {
       )}
       {isEditing ? (
         <div className='saved-post-content'>
-          <EditSavedPost content={content} setIsEditing={setIsEditing} handleDeleteSavedPost={handleDeleteSavedPost}/>
+          <EditSavedPost post={post} setIsEditing={setIsEditing} handleDeleteSavedPost={handleDeleteSavedPost}/>
         </div>
       ) : null}
     </div>

@@ -3,9 +3,12 @@ import {
   GET_RECOMMENDATION,
   LOGIN_SUCCESS_ACTION,
   LOGIN_ERROR_ACTION,
-  SAVE_POST,
+  FETCHING_SAVED_POSTS,
+  FETCH_SAVED_POSTS_SUCCESS,
+  SAVE_NEW_POST,
+  UPDATE_POST,
   DELETE_POST,
-  UPDATE_POST
+  FILTER_POSTS
 } from './actions'
 
 export const initialApplicationState = {
@@ -35,6 +38,12 @@ export default function reducer(state = initialApplicationState, action) {
       return state
     case LOGIN_ERROR_ACTION:
       return { ...state, loginErrorMessage: action.payload }
+    case FETCHING_SAVED_POSTS: 
+      return {...state, isLoadingFromBackend: true}
+    case FETCH_SAVED_POSTS_SUCCESS:
+      return {...state, savedPosts:action.payload}
+    case FILTER_POSTS:
+      return {...state, savedPosts:action.payload}
     default:
       return state
   }

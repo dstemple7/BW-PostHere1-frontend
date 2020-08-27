@@ -1,9 +1,11 @@
 import axiosWithAuth from '../api/axiosWithAuth'
-const FETCHING_SAVED_POSTS = 'FETCHING_SAVED_POSTS'
-const FETCH_SAVED_POSTS_SUCCESS = 'FETCH_SAVED_POSTS_SUCCESS'
-const SAVE_NEW_POST = 'SAVE_POST'
-const UPDATE_POST = 'UPDATE_POST'
-const DELETE_POST = 'DELETE_POST'
+import reducer from '../reducer'
+export const FETCHING_SAVED_POSTS = 'FETCHING_SAVED_POSTS'
+export const FETCH_SAVED_POSTS_SUCCESS = 'FETCH_SAVED_POSTS_SUCCESS'
+export const SAVE_NEW_POST = 'SAVE_POST'
+export const UPDATE_POST = 'UPDATE_POST'
+export const DELETE_POST = 'DELETE_POST'
+export const FILTER_POSTS = 'FILTER_POSTS'
 
 export const fetchSavedPosts = () => dispatch => {
   dispatch({ type: FETCHING_SAVED_POSTS })
@@ -13,7 +15,7 @@ export const fetchSavedPosts = () => dispatch => {
       console.log('saved posts ->', res)
       dispatch({ type: FETCH_SAVED_POSTS_SUCCESS, payload: res.data })
     })
-    .catch(err => console.log(err))
+    .catch(err => console.log('error',err.response))
 }
 
 export const saveNewPost = (newRedditPost) => dispatch => {
@@ -46,3 +48,6 @@ export const deleteSavedPost = (deletedRedditPost) => dispatch => {
     .catch(err => console.log(err))
 }
 
+export const setFilteredPosts = (filteredPosts) => dispatch => {
+  dispatch({type: FILTER_POSTS, payload: filteredPosts})
+}
