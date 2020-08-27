@@ -8,7 +8,8 @@ import {
   SAVE_NEW_POST,
   UPDATE_POST,
   DELETE_POST,
-  FILTER_POSTS
+  FILTER_POSTS,
+  CLEAR_REDIRECT
 } from './actions'
 
 export const initialApplicationState = {
@@ -22,6 +23,8 @@ export const initialApplicationState = {
 
   searchText: '',
 
+  shouldRedirectTo: '',
+
   savedPosts: [],
 }
 
@@ -30,12 +33,9 @@ export default function reducer(state = initialApplicationState, action) {
     case GET_RECOMMENDATION:
       return { ...state, inProgressPost: action.payload }
     case SIGNUP_SUCCESS_ACTION:
-      // token in localStorage, and all’s right with the world
-      // …so do nothing
-      return state
+      return { ...state, shouldRedirectTo: '/dashboard' }
     case LOGIN_SUCCESS_ACTION:
-      // nothing to do here
-      return state
+      return { ...state, shouldRedirectTo: '/dashboard' }
     case LOGIN_ERROR_ACTION:
       return { ...state, loginErrorMessage: action.payload }
     case FETCHING_SAVED_POSTS: 
@@ -50,6 +50,8 @@ export default function reducer(state = initialApplicationState, action) {
       return {...state} //update when return data is useable
     case UPDATE_POST:
       return {...state} //update when return data is useable
+    case CLEAR_REDIRECT:
+      return { ...state, shouldRedirectTo: '' }
     default:
       return state
   }

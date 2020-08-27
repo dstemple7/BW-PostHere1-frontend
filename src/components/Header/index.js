@@ -5,6 +5,10 @@ import './style.scss'
 const Header = (props) => {
   
   const loggedIn = !!localStorage.getItem('token')
+
+  function onLogout() {
+    localStorage.removeItem('token')
+  }
   
   return (
     <div className='header'>
@@ -25,10 +29,7 @@ const Header = (props) => {
             <Link to='/dashboard' className='link'>
               Dashboard
             </Link>
-            <Link to='/settings' className='link'>
-              Settings
-            </Link>
-            <Link to='/' className='link'>
+            <Link to='/' className='link' onClick={onLogout}>
               Log Out
             </Link>
           </div>
