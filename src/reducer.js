@@ -12,11 +12,14 @@ import {
   CLEAR_REDIRECT,
   CLEAR_POST_SAVED_SUCCESS_MESSAGE,
   UPDATE_POST_WITH_RECS,
+  LOGOUT_SUCCESS_ACTION,
 } from './actions'
 
 export const initialApplicationState = {
   signupErrorMessage: '',
   loginErrorMessage: '',
+
+  isLoggedIn: false,
 
   isLoadingFromDS: false,
   isLoadingFromBackend: false,
@@ -39,9 +42,11 @@ export default function reducer(state = initialApplicationState, action) {
     case SIGNUP_SUCCESS_ACTION:
       return { ...state, shouldRedirectTo: '/dashboard' }
     case LOGIN_SUCCESS_ACTION:
-      return { ...state, shouldRedirectTo: '/dashboard' }
+      return { ...state, shouldRedirectTo: '/dashboard', isLoggedIn: true }
     case LOGIN_ERROR_ACTION:
       return { ...state, loginErrorMessage: action.payload }
+    case LOGOUT_SUCCESS_ACTION:
+      return { ...state, isLoggedIn: false }
     case FETCHING_SAVED_POSTS:
       return { ...state, isLoadingFromBackend: true }
     case FETCH_SAVED_POSTS_SUCCESS:
@@ -68,7 +73,10 @@ export default function reducer(state = initialApplicationState, action) {
         ...state,
         savedPosts: state.savedPosts.map((p) => {
           if (Number(p.postid) === Number(action.payload.postid)) {
-            console.log('yes, there actually was a match in the updater', action.payload);
+            console.log(
+              'yes, there actually was a match in the updater',
+              action.payload
+            )
             return action.payload
           } else {
             return p

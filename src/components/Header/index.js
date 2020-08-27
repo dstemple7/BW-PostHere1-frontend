@@ -1,15 +1,17 @@
 import React from 'react'
-import {Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { createLogoutSuccessAction } from '../../actions'
 import './style.scss'
 
 const Header = (props) => {
-  
   const loggedIn = !!localStorage.getItem('token')
 
   function onLogout() {
     localStorage.removeItem('token')
+    props.createLogoutSuccessAction()
   }
-  
+
   return (
     <div className='header'>
       <h1>PostHere</h1>
@@ -39,4 +41,8 @@ const Header = (props) => {
   )
 }
 
-export default Header
+const mapStateToProps = (state) => state
+
+const mapDispatchToProps = { createLogoutSuccessAction }
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header)

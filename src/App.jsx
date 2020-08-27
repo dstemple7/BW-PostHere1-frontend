@@ -4,6 +4,7 @@ import Header from './components/Header'
 import Login from './components/Login'
 import { Route, Redirect, Switch } from 'react-router-dom'
 import SignUp from './components/SignUp'
+import LoggedInAsAnybodyRoute from './routes';
 
 function App() {
   return (
@@ -20,9 +21,9 @@ function App() {
           <Route path='/signup'>
             <SignUp />
           </Route>
-          <Route path='/dashboard'>
+          <LoggedInAsAnybodyRoute path='/dashboard'>
             <Dashboard />
-          </Route>
+          </LoggedInAsAnybodyRoute>
           <Route path='/signup'>
             <SignUp />
           </Route>
