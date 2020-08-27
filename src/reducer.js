@@ -11,6 +11,7 @@ import {
   FILTER_POSTS,
   CLEAR_REDIRECT,
   CLEAR_POST_SAVED_SUCCESS_MESSAGE,
+  UPDATE_POST_WITH_RECS,
 } from './actions'
 
 export const initialApplicationState = {
@@ -61,11 +62,13 @@ export default function reducer(state = initialApplicationState, action) {
         savedPosts: [action.payload, ...state.savedPosts],
       }
     case UPDATE_POST:
-      debugger
+    // fallthrough
+    case UPDATE_POST_WITH_RECS:
       return {
         ...state,
         savedPosts: state.savedPosts.map((p) => {
           if (Number(p.postid) === Number(action.payload.postid)) {
+            console.log('yes, there actually was a match in the updater', action.payload);
             return action.payload
           } else {
             return p

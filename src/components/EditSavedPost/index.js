@@ -1,39 +1,53 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 
-import { getRecommendations, updateSavedPost } from '../../actions'
+import {
+  getRecommendations,
+  updateSavedPost,
+  updatePostWithRecs,
+} from '../../actions'
 
 import './style.scss'
 import intersperse from '../../util/intersperse'
 
 const EditSavedPost = (props) => {
-
   const { post } = props
 
-  console.log(post)
-  const [title, setTitle] = useState(post.title)
-  const [body, setBody] = useState(post.post)
+  try {
+    post.subredditsAsList = JSON.parse(post.subreddit)
+  } catch (e) {
+    console.error(
+      'Error trying to parse post.subreddit, which is a string containing JSON, maybe. The post was',
+      post
+    )
+    throw e
+  }
 
+  const [subredditSuggestions, setSubredditSuggestions] = useState([])
 
   useEffect(() => {
-    const suggestions = props.inProgressPost.recs.map(
-      (r) => '/r/' + r.subreddit
-    )
-    setElementSuggestions(
-      suggestions.map((s) => <a href={`https://reddit.com${s}`}>{s}</a>)
-    )
-  }, [props.inProgressPost])
+    setSubredditSuggestions(post.subredditsAsList)
+  }, [post])
+
+  if (subredditSuggestions === undefined) {
+    console.log('the entire post, with an undefined post.subreddits', post)
+  }
+
+  const [title, setTitle] = useState(post.title)
+  const [body, setBody] = useState(post.post)
 
   function onSubmit(e) {
     e.preventDefault()
 
-    const post = {
+    const postForSubmitting = {
       title,
       body,
       recs: [],
+      postid: post.postid,
     }
 
-    getRecommendations(post)
+    console.log('Right before updating post with recs…')
+    props.updatePostWithRecs(postForSubmitting)
   }
 
   const handlePostUpdate = (e) => {
@@ -48,6 +62,20 @@ const EditSavedPost = (props) => {
 
     props.setIsEditing(false)
   }
+
+  console.log('This is the subreddit suggestions:', subredditSuggestions)
+
+  const [suggestedElements, setSuggestedElements] = useState([])
+  useEffect(() => {
+    setSuggestedElements(
+      subredditSuggestions.map((s) => (
+        <a
+          data-probability={s.probability}
+          href={`https://www.reddit.com/r/${s.subreddit}`}
+        >{`/r/${s.subreddit}`}</a>
+      ))
+    )
+  }, [subredditSuggestions])
 
   return (
     <div>
@@ -77,7 +105,11 @@ const EditSavedPost = (props) => {
         </div>
         <div className='suggestions'>
           <p>Subreddit Suggestions:</p>
-          {/* <p>{subRedditSuggestions === "" ? "" : intersperse(subRedditSuggestions, ' · ')}</p> */}
+          <p>
+            {suggestedElements.length === 0
+              ? ''
+              : intersperse(suggestedElements, ' · ')}
+          </p>
         </div>
         <div className='button-group'>
           <button onClick={handlePostUpdate}>Done</button>
@@ -92,5 +124,8 @@ const EditSavedPost = (props) => {
 
 const mapStateToProps = (state) => state
 
-
-export default connect(mapStateToProps, { getRecommendations, updateSavedPost })(EditSavedPost)
+export default connect(mapStateToProps, {
+  getRecommendations,
+  updateSavedPost,
+  updatePostWithRecs,
+})(EditSavedPost)
