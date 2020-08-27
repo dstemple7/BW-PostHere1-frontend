@@ -1,18 +1,25 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 
-import { getRecommendations, saveNewPost } from '../../actions'
+import {
+  getRecommendations,
+  saveNewPost,
+  clearPostSavedSuccessMessage,
+} from '../../actions'
 
 import './style.scss'
 import intersperse from '../../util/intersperse'
 
 const CreatePost = (props) => {
+  const { savedSuccessMessage, clearPostSavedSuccessMessage } = props
   const [title, setTitle] = useState('')
   const [body, setBody] = useState('')
   const [elementSuggestions, setElementSuggestions] = useState([])
 
   useEffect(() => {
-    const suggestions = props.inProgressPost.recs.map((r) => '/r/' + r.subreddit)
+    const suggestions = props.inProgressPost.recs.map(
+      (r) => '/r/' + r.subreddit
+    )
     setElementSuggestions(
       suggestions.map((s) => <a href={`https://reddit.com${s}`}>{s}</a>)
     )
@@ -30,7 +37,20 @@ const CreatePost = (props) => {
     props.getRecommendations(post)
   }
 
-  const handleSavePost = e => {
+  useEffect(() => {
+    console.log(
+      'In useEffect for savedSuccessMessage. It is',
+      savedSuccessMessage
+    )
+
+    setTimeout(() => {
+      setTitle('')
+      setBody('')
+      clearPostSavedSuccessMessage()
+    }, 1000 * 3)
+  }, [savedSuccessMessage])
+
+  const handleSavePost = (e) => {
     e.preventDefault()
 
     let recs = props.inProgressPost.recs
@@ -39,7 +59,7 @@ const CreatePost = (props) => {
     const newPost = {
       title: title,
       post: body,
-      subreddit: JSON.stringify(recs)
+      subreddit: JSON.stringify(recs),
     }
     props.saveNewPost(newPost)
   }
@@ -48,6 +68,7 @@ const CreatePost = (props) => {
     <>
       <section className='create-post'>
         <h2>Create a post</h2>
+        {savedSuccessMessage ? <p>{savedSuccessMessage}</p> : ''}
         <form className='create-post-form' onSubmit={onSubmit}>
           <label>
             Title
@@ -85,6 +106,10 @@ const CreatePost = (props) => {
   )
 }
 
-const mapStateToProps = (state) => state 
+const mapStateToProps = (state) => state
 
-export default connect(mapStateToProps, {getRecommendations, saveNewPost })(CreatePost)
+export default connect(mapStateToProps, {
+  getRecommendations,
+  saveNewPost,
+  clearPostSavedSuccessMessage,
+})(CreatePost)
