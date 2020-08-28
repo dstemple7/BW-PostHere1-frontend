@@ -21,6 +21,7 @@ function fixUpPosts(resp) {
 async function getSavedPosts() {
   const resp = await axiosWithAuth().get('/home/getuserinfo')
   const posts = fixUpPosts(resp)
+  posts.sort((l, r) => l.postid - r.postid)
   return posts
 }
 
