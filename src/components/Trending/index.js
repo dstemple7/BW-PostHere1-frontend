@@ -20,7 +20,7 @@ export default function Trending(props) {
 
   return(
     <div className='trending-post'>
-      <h1>Today's trending subreddits:</h1>
+      <h2>Trending Subreddits:</h2>
       { subreddits.map( sub => {
         return (
           <TrendingLink sub={sub} />

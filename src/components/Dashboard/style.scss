@@ -1,5 +1,26 @@
+.columnContainer {
+  display: flex;
+  margin: 0 auto;
+  max-width: 1200px;
+  justify-content: center;
+
+  @media screen and (max-width: 1030px) {
+    flex-direction: column;
+  }
+}
 
 .dashboard {
   display: flex;
   flex-direction: column;
+  // flex-shrink: 2;
+  padding-right: 1%;
+}
+
+.sideBar{
+  // flex-grow: 1;
+  padding-top: 7%;
+
+  @media screen and (max-width: 1030px) {
+    padding: 0 5%;
+  }
 }
