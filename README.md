@@ -1,44 +1,53 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# PostHere
 
-## Available Scripts
+## About
+"No matter what you want to post. We will help you find a subreddit."
+This app uses neural networks and machine learning to analyze the text of a reddit post and recommends potential subreddits to post it to. 
 
-In the project directory, you can run:
+## Purpose
+A Lambda School Build Week Project.
 
-### `npm start`
+## Installation
+This project uses npm. Use `npm install` in the /frontend directory.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Libraries Used
+- React
+- Redux
+- react-redux
+- redux-thunk
+- Axios
+- react-router
+- react-router-dom
+- node-sass
+- yup
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## Development Team
 
-### `npm test`
+### Project Leads
+***Jackie Atwood*** | [Github](https://github.com/tajahouse)
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Data Science
 
-### `npm run build`
+***Allan Gongora*** | [Github](https://github.com/allan-gon)
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+***Dave Liu*** | [Github](https://github.com/dmhliu)
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+***Jon Rivera*** | [Github](https://github.com/JonRivera)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+***Sasana Kongjareon*** | [Github](https://github.com/popkdodge)
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Backend Developer
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+***David Temple*** | [Github](https://github.com/dstemple7)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Frontend Developers
+***Austin McCollom*** | [Github](https://github.com/austinmccollom)
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+***Alex Williams*** | [Github](https://github.com/ajwpdx)
 
-## Learn More
+***Nathan Galt*** | [Github](https://github.com/adiabatic)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Marketing Page
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+***Tyler Maynard*** | [Github](https://github.com/teranasoras)
