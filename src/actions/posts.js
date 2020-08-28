@@ -18,34 +18,30 @@ function fixUpPosts(resp) {
   return posts
 }
 
-export const fetchSavedPosts = () => (dispatch) => {
-  dispatch({ type: FETCHING_SAVED_POSTS })
-  axiosWithAuth()
-    .get('/home/getuserinfo')
-    .then((res) => {
-      console.log('fetch post ->', res.data)
-      const posts = fixUpPosts(res)
-
-      dispatch({ type: FETCH_SAVED_POSTS_SUCCESS, payload: posts })
-    })
-    .catch((err) => console.log('error', err.response))
+async function getSavedPosts() {
+  const resp = await axiosWithAuth().get('/home/getuserinfo')
+  const posts = fixUpPosts(resp)
+  return posts
 }
 
-export const saveNewPost = (newRedditPost) => (dispatch) => {
-  axiosWithAuth()
-    .post('/posts/post', newRedditPost)
-    .then((res) => {
-      console.log('create post ->', res)
+export const fetchSavedPosts = () => async (dispatch) => {
+  dispatch({ type: FETCHING_SAVED_POSTS })
+  try {
+    const posts = await getSavedPosts()
+    dispatch({ type: FETCH_SAVED_POSTS_SUCCESS, payload: posts })
+  } catch (err) {
+    console.log('error', err.response)
+  }
+}
 
-      axiosWithAuth()
-        .get('/home/getuserinfo')
-        .then((resp) => {
-          const posts = fixUpPosts(resp)
-          dispatch({ type: SAVE_NEW_POST, payload: posts })
-        })
-        .catch((err) => console.error(err.response))
-    })
-    .catch((err) => console.log(err.response))
+export const saveNewPost = (newRedditPost) => async (dispatch) => {
+  try {
+    await axiosWithAuth().post('/posts/post', newRedditPost)
+    const posts = await getSavedPosts()
+    dispatch({ type: SAVE_NEW_POST, payload: posts })
+  } catch (e) {
+    console.error(e.response)
+  }
 }
 
 export const updateSavedPost = (updatedRedditPost) => (dispatch) => {
@@ -117,7 +113,7 @@ export const updatePostWithRecs = (post) => async (dispatch) => {
     try {
       const resp = await axiosWithAuth().get('/home/getuserinfo')
       const posts = fixUpPosts(resp)
-      dispatch({type: UPDATE_POST_WITH_RECS, payload: posts})
+      dispatch({ type: UPDATE_POST_WITH_RECS, payload: posts })
     } catch (e) {
       console.error(e.response)
     }
