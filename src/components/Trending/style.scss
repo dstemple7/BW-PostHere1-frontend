@@ -2,10 +2,13 @@
   box-sizing: border-box;
   border: 1px solid;
   border-radius: 0.2rem;
-  width: 800px;
+  width: auto;
   margin: 1rem auto;
   background-color: var(--color--card);
-  padding: 0 2%;
+  padding: 0 3%;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
 
   a {
     h4{

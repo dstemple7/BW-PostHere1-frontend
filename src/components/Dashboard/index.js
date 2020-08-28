@@ -7,13 +7,15 @@ import Trending from '../Trending'
 
 const Dashboard = (props) => {
   return (
-    <>
+    <div className='columnContainer'>
       <div className='dashboard'>
         <CreatePost />
         <SavedList />
+      </div>
+      <div className='sideBar'>
         <Trending />
       </div>
-    </>
+    </div>
   )
 }
 

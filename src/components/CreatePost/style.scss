@@ -2,6 +2,9 @@
   width: 800px;
   margin: 0 auto;
 
+  label{
+    width: 100%;
+  }
   .create-post-form {
     background-color: var(--color--card);
     border: 1px solid;
@@ -30,6 +33,7 @@
   height: 6rem;
   border: 1px solid;
   margin-top: 1rem;
+  width: 100%;
   p {
     padding-left: 1rem;
   }
