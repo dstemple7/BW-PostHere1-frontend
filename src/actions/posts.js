@@ -44,23 +44,17 @@ export const saveNewPost = (newRedditPost) => async (dispatch) => {
   }
 }
 
-export const updateSavedPost = (updatedRedditPost) => (dispatch) => {
-  axiosWithAuth()
-    .put(`/posts/post/${updatedRedditPost.postid}`, updatedRedditPost)
-    .then((res) => {
-      console.log('edit post ->', res)
-
-      axiosWithAuth()
-        .get('/home/getuserinfo')
-        .then((resp) => {
-          console.log('the response for user after editing a post', resp)
-          const posts = fixUpPosts(resp)
-          console.log('all the posts after editing a post', posts)
-          dispatch({ type: UPDATE_POST, payload: posts })
-        })
-        .catch((err) => console.error(err.response))
-    })
-    .catch((err) => console.log(err))
+export const updateSavedPost = (updatedRedditPost) => async (dispatch) => {
+  try {
+    await axiosWithAuth().put(
+      `/posts/post/${updatedRedditPost.postid}`,
+      updatedRedditPost
+    )
+    const posts = await getSavedPosts()
+    dispatch({ type: UPDATE_POST, payload: posts })
+  } catch (e) {
+    console.error(e.response)
+  }
 }
 
 export const deleteSavedPost = (deletedRedditPost) => (dispatch) => {
@@ -94,28 +88,16 @@ export const updatePostWithRecs = (post) => async (dispatch) => {
       req
     )
 
-    console.log(resp)
-
     post.recs = resp.data
 
     post.subreddit = JSON.stringify(post.recs)
 
     try {
-      const backendResp = await axiosWithAuth().put(
-        `/posts/post/${post.postid}`,
-        post
-      )
-      console.log('backend response when updating post with recs', backendResp)
-    } catch (e) {
-      console.error('update post: error response:', e.response)
-    }
-
-    try {
-      const resp = await axiosWithAuth().get('/home/getuserinfo')
-      const posts = fixUpPosts(resp)
+      await axiosWithAuth().put(`/posts/post/${post.postid}`, post)
+      const posts = await getSavedPosts()
       dispatch({ type: UPDATE_POST_WITH_RECS, payload: posts })
     } catch (e) {
-      console.error(e.response)
+      console.error('update post: error response:', e.response)
     }
   } catch (e) {
     console.error(e.response)
