@@ -7,7 +7,7 @@ import './style.scss'
 import SavedPost from '../SavedPost'
 
 const SavedList = (props) => {
-  const { savedPosts } = props
+  const { savedPosts, fetchSavedPosts } = props
   const [displayedPosts, setDisplayedPosts] = useState(savedPosts)
   const [search, setSearch] = useState('')
 
@@ -16,8 +16,8 @@ const SavedList = (props) => {
   }
 
   useEffect(() => {
-    props.fetchSavedPosts()
-  }, [])
+    fetchSavedPosts()
+  }, [fetchSavedPosts])
 
   useEffect(() => {
     console.log('saved posts', savedPosts)

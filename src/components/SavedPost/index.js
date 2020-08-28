@@ -45,7 +45,7 @@ const SavedPost = (props) => {
   }
 
   let subredditFragments = subreddits.map((s) => (
-    <a
+    <a key={s.subreddit}
       href={`https://www.reddit.com/r/${s.subreddit}`}
       data-probability={s.probability}
     >

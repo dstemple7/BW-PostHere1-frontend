@@ -20,8 +20,11 @@ const CreatePost = (props) => {
     const suggestions = props.inProgressPost.recs.map(
       (r) => '/r/' + r.subreddit
     )
+
+    console.log('check for duplicates', suggestions);
+
     setElementSuggestions(
-      suggestions.map((s) => <a href={`https://reddit.com${s}`}>{s}</a>)
+      suggestions.map((s) => <a key={s} href={`https://reddit.com${s}`}>{s}</a>)
     )
   }, [props.inProgressPost])
 
@@ -48,7 +51,7 @@ const CreatePost = (props) => {
       setBody('')
       clearPostSavedSuccessMessage()
     }, 1000 * 3)
-  }, [savedSuccessMessage])
+  }, [savedSuccessMessage, clearPostSavedSuccessMessage])
 
   const handleSavePost = (e) => {
     e.preventDefault()
