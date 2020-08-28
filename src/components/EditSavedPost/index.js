@@ -63,13 +63,12 @@ const EditSavedPost = (props) => {
     props.setIsEditing(false)
   }
 
-  console.log('This is the subreddit suggestions:', subredditSuggestions)
-
   const [suggestedElements, setSuggestedElements] = useState([])
   useEffect(() => {
     setSuggestedElements(
       subredditSuggestions.map((s) => (
         <a
+          key={s.subreddit}
           data-probability={s.probability}
           href={`https://www.reddit.com/r/${s.subreddit}`}
         >{`/r/${s.subreddit}`}</a>
