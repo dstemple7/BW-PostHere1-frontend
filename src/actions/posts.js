@@ -1,6 +1,5 @@
 import axios from 'axios'
 import axiosWithAuth from '../api/axiosWithAuth'
-import reducer from '../reducer'
 export const FETCHING_SAVED_POSTS = 'FETCHING_SAVED_POSTS'
 export const FETCH_SAVED_POSTS_SUCCESS = 'FETCH_SAVED_POSTS_SUCCESS'
 export const SAVE_NEW_POST = 'SAVE_POST'
@@ -11,16 +10,21 @@ export const FILTER_POSTS = 'FILTER_POSTS'
 export const CLEAR_POST_SAVED_SUCCESS_MESSAGE =
   'CLEAR_POST_SAVED_SUCCESS_MESSAGE'
 
+function fixUpPosts(resp) {
+  const posts = resp.data.posts.map((o) => o.post)
+  for (const post of posts) {
+    if (post.subreddit === null) post.subreddit = []
+  }
+  return posts
+}
+
 export const fetchSavedPosts = () => (dispatch) => {
   dispatch({ type: FETCHING_SAVED_POSTS })
   axiosWithAuth()
     .get('/home/getuserinfo')
     .then((res) => {
       console.log('fetch post ->', res.data)
-      const posts = res.data.posts.map((o) => o.post)
-      for (const post of posts) {
-        if (post.subreddit === null) post.subreddit = []
-      }
+      const posts = fixUpPosts(res)
 
       dispatch({ type: FETCH_SAVED_POSTS_SUCCESS, payload: posts })
     })
@@ -32,7 +36,14 @@ export const saveNewPost = (newRedditPost) => (dispatch) => {
     .post('/posts/post', newRedditPost)
     .then((res) => {
       console.log('create post ->', res)
-      dispatch({ type: SAVE_NEW_POST, payload: newRedditPost })
+
+      axiosWithAuth()
+        .get('/home/getuserinfo')
+        .then((resp) => {
+          const posts = fixUpPosts(resp)
+          dispatch({ type: SAVE_NEW_POST, payload: posts })
+        })
+        .catch((err) => console.error(err.response))
     })
     .catch((err) => console.log(err.response))
 }
@@ -42,7 +53,16 @@ export const updateSavedPost = (updatedRedditPost) => (dispatch) => {
     .put(`/posts/post/${updatedRedditPost.postid}`, updatedRedditPost)
     .then((res) => {
       console.log('edit post ->', res)
-      dispatch({ type: UPDATE_POST, payload: updatedRedditPost })
+
+      axiosWithAuth()
+        .get('/home/getuserinfo')
+        .then((resp) => {
+          console.log('the response for user after editing a post', resp)
+          const posts = fixUpPosts(resp)
+          console.log('all the posts after editing a post', posts)
+          dispatch({ type: UPDATE_POST, payload: posts })
+        })
+        .catch((err) => console.error(err.response))
     })
     .catch((err) => console.log(err))
 }
@@ -85,14 +105,22 @@ export const updatePostWithRecs = (post) => async (dispatch) => {
     post.subreddit = JSON.stringify(post.recs)
 
     try {
-      const backendResp = await axiosWithAuth().put(`/posts/post/${post.postid}`, post)
+      const backendResp = await axiosWithAuth().put(
+        `/posts/post/${post.postid}`,
+        post
+      )
       console.log('backend response when updating post with recs', backendResp)
     } catch (e) {
-      console.error('Unfavorable response from the backend when trying to update a post with recs:', e.response)
+      console.error('update post: error response:', e.response)
     }
 
-    console.log('post before update dispatch', post);
-    dispatch({ type: UPDATE_POST_WITH_RECS, payload: post })
+    try {
+      const resp = await axiosWithAuth().get('/home/getuserinfo')
+      const posts = fixUpPosts(resp)
+      dispatch({type: UPDATE_POST_WITH_RECS, payload: posts})
+    } catch (e) {
+      console.error(e.response)
+    }
   } catch (e) {
     console.error(e.response)
   }

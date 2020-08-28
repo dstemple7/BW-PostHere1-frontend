@@ -64,24 +64,14 @@ export default function reducer(state = initialApplicationState, action) {
       return {
         ...state,
         savedSuccessMessage: 'Post created successfully!',
-        savedPosts: [action.payload, ...state.savedPosts],
+        savedPosts: action.payload,
       }
     case UPDATE_POST:
     // fallthrough
     case UPDATE_POST_WITH_RECS:
       return {
         ...state,
-        savedPosts: state.savedPosts.map((p) => {
-          if (Number(p.postid) === Number(action.payload.postid)) {
-            console.log(
-              'yes, there actually was a match in the updater',
-              action.payload
-            )
-            return action.payload
-          } else {
-            return p
-          }
-        }),
+        savedPosts: action.payload,
       }
     case CLEAR_POST_SAVED_SUCCESS_MESSAGE:
       return { ...state, savedSuccessMessage: '' }
