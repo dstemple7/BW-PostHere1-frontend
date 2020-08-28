@@ -19,3 +19,8 @@
 .error {
   color: red;
 }
+
+input {
+  background-color: var(--color--background--textarea);
+  color: var(--color--text);
+}
